@@ -79,7 +79,7 @@ class _TimeTabExampleState extends State<TimeTab>
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: Container(
           width: MediaQuery.of(context).size.width,
-          color: Colors.white,
+          color: Color.fromARGB(157, 192, 158, 120),
           height: 70,
           child: Column(
             mainAxisAlignment:

@@ -108,6 +108,7 @@ class _BookingTabsState extends State<BookingTabs>
           title: Text('Бронирование'),
         ),
         body: TabBarView(
+          // physics: const NeverScrollableScrollPhysics(),
           controller: _tabController,
           children: bookingTabsBody,
         ),

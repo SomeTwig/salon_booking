@@ -30,7 +30,7 @@ class _AppointmentTabState extends State<AppointmentTab>
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: Container(
         width: MediaQuery.of(context).size.width,
-        color: Colors.white,
+        color: Color.fromARGB(157, 192, 158, 120),
         height: 70,
         child: Column(
           mainAxisAlignment:
@@ -62,95 +62,103 @@ class _AppointmentTabState extends State<AppointmentTab>
         ),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Text(
-              'Выбраный салон: \n${Provider.of<BookingInfo>(context, listen: false).sName}',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w300,
-              ),
+          physics: const BouncingScrollPhysics(),
+          child: SafeArea(
+              child: ConstrainedBox(
+            constraints: BoxConstraints(
+              maxHeight: MediaQuery.of(context).size.height - 70,
             ),
-            Text(
-              'Выбраное время: \n${Provider.of<BookingInfo>(context, listen: false).bDate} \n ${Provider.of<BookingInfo>(context, listen: false).bTime}',
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            Form(
-                key: formKey,
-                child: Container(
-                  margin: const EdgeInsets.all(20.0),
-                  child: Column(
-                    children: <Widget>[
-                      TextFormField(
-                        controller: controllerName,
-                        decoration: InputDecoration(
-                          labelText: "Имя",
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Введите имя';
-                          }
-                          return null;
-                        },
-                        maxLength: 40,
-                      ),
-                      const SizedBox(height: 50),
-                      InternationalPhoneNumberInput(
-                        onInputChanged: (PhoneNumber number) {
-                          print(number.phoneNumber);
-                        },
-                        onInputValidated: (bool value) {
-                          print(value);
-                        },
-                        selectorConfig: SelectorConfig(
-                          selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
-                        ),
-                        ignoreBlank: false,
-                        autoValidateMode: AutovalidateMode.disabled,
-                        selectorTextStyle: TextStyle(color: Colors.black),
-                        initialValue: number,
-                        textFieldController: controllerPhone,
-                        formatInput: true,
-                        keyboardType: TextInputType.numberWithOptions(
-                            signed: true, decimal: true),
-                        hintText: 'Номер телефона',
-                        errorMessage: 'Неправильный номер',
-                        inputBorder: OutlineInputBorder(),
-                        onSaved: (PhoneNumber number) {
-                          print('On Saved: $number');
-                        },
-                      ),
-                      const SizedBox(height: 50),
-                      TextFormField(
-                        decoration: InputDecoration(
-                          labelText: "Комментарий",
-                        ),
-                        keyboardType: TextInputType.multiline,
-                        maxLength: 400,
-                        maxLines: null,
-                      ),
-                      const SizedBox(height: 30),
-                      CheckboxListTile(
-                        //checkbox positioned at left
-                        value: check,
-                        controlAffinity: ListTileControlAffinity.leading,
-                        onChanged: (bool? value) {
-                          setState(() {
-                            check = value;
-                          });
-                        },
-                        title:
-                            Text("Разрешить использование персональных данных"),
-                      ),
-                    ],
+            child: Column(
+              children: [
+                Text(
+                  'Выбраный салон: \n${Provider.of<BookingInfo>(context, listen: false).sName}',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w300,
                   ),
-                )),
-          ],
-        ),
-      ),
+                ),
+                const SizedBox(height: 20),
+                Text(
+                  'Выбраное время: \n${Provider.of<BookingInfo>(context, listen: false).bDate} \n ${Provider.of<BookingInfo>(context, listen: false).bTime}',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                Form(
+                    key: formKey,
+                    child: Container(
+                      margin: const EdgeInsets.all(20.0),
+                      child: Column(
+                        children: <Widget>[
+                          TextFormField(
+                            controller: controllerName,
+                            decoration: InputDecoration(
+                              labelText: "Имя",
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Введите имя';
+                              }
+                              return null;
+                            },
+                            maxLength: 40,
+                          ),
+                          const SizedBox(height: 30),
+                          InternationalPhoneNumberInput(
+                            onInputChanged: (PhoneNumber number) {
+                              print(number.phoneNumber);
+                            },
+                            onInputValidated: (bool value) {
+                              print(value);
+                            },
+                            selectorConfig: SelectorConfig(
+                              selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+                            ),
+                            ignoreBlank: false,
+                            autoValidateMode: AutovalidateMode.disabled,
+                            selectorTextStyle: TextStyle(color: Colors.black),
+                            initialValue: number,
+                            textFieldController: controllerPhone,
+                            formatInput: true,
+                            keyboardType: TextInputType.numberWithOptions(
+                                signed: true, decimal: true),
+                            hintText: 'Номер телефона',
+                            errorMessage: 'Неправильный номер',
+                            inputBorder: OutlineInputBorder(),
+                            onSaved: (PhoneNumber number) {
+                              print('On Saved: $number');
+                            },
+                          ),
+                          const SizedBox(height: 30),
+                          TextFormField(
+                            decoration: InputDecoration(
+                              labelText: "Комментарий",
+                            ),
+                            keyboardType: TextInputType.multiline,
+                            maxLength: 400,
+                            maxLines: null,
+                          ),
+                          const SizedBox(height: 30),
+                          CheckboxListTile(
+                            //checkbox positioned at left
+                            value: check,
+                            controlAffinity: ListTileControlAffinity.leading,
+                            onChanged: (bool? value) {
+                              setState(() {
+                                check = value;
+                              });
+                            },
+                            title: Text(
+                                "Разрешить использование персональных данных"),
+                          ),
+                          const SizedBox(height: 30),
+                        ],
+                      ),
+                    )),
+              ],
+            ),
+          ))),
     );
   }
 
