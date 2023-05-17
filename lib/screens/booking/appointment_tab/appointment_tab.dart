@@ -15,9 +15,10 @@ class _AppointmentTabState extends State<AppointmentTab>
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController controllerPhone = TextEditingController();
   TextEditingController controllerName = TextEditingController();
+  TextEditingController controllerComment = TextEditingController();
 
   String initialCountry = 'UA';
-  PhoneNumber number = PhoneNumber(isoCode: 'UA');
+  PhoneNumber pNumber = PhoneNumber(isoCode: 'UA');
   bool? check = false;
 
   @override
@@ -41,10 +42,21 @@ class _AppointmentTabState extends State<AppointmentTab>
               onPressed: () {
                 if (formKey.currentState!.validate()) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Создание бронировки...')),
+                    const SnackBar(content: Text('Создание бронировки... \n')),
                   );
                   formKey.currentState?.save();
+                  Provider.of<BookingInfo>(context, listen: false)
+                      .addClientInfo(
+                          controllerName.text,
+                          pNumber.phoneNumber.toString(),
+                          controllerComment.text,
+                          check!);
                   widget.onSubmit();
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                        content: Text('Пожалуйста, проверьте ваши данные')),
+                  );
                 }
               },
               style: ElevatedButton.styleFrom(
@@ -118,7 +130,7 @@ class _AppointmentTabState extends State<AppointmentTab>
                             ignoreBlank: false,
                             autoValidateMode: AutovalidateMode.disabled,
                             selectorTextStyle: TextStyle(color: Colors.black),
-                            initialValue: number,
+                            initialValue: pNumber,
                             textFieldController: controllerPhone,
                             formatInput: true,
                             keyboardType: TextInputType.numberWithOptions(
@@ -127,11 +139,13 @@ class _AppointmentTabState extends State<AppointmentTab>
                             errorMessage: 'Неправильный номер',
                             inputBorder: OutlineInputBorder(),
                             onSaved: (PhoneNumber number) {
+                              pNumber = number;
                               print('On Saved: $number');
                             },
                           ),
                           const SizedBox(height: 30),
                           TextFormField(
+                            controller: controllerComment,
                             decoration: InputDecoration(
                               labelText: "Комментарий",
                             ),

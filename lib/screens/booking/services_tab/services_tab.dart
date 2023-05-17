@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:test_1/models/models.dart';
+import 'package:test_1/screens/booking/services_tab/services_add/services_add.dart';
 
-import 'package:test_1/screens/booking/services_tab/components/services_expand.dart';
+import 'package:test_1/screens/booking/services_tab/services_add/components/services_expand.dart';
 import 'package:test_1/data/data.dart';
 
 //Main body of the page
@@ -23,6 +24,7 @@ class _ServicesTabState extends State<ServicesTab>
 
   @override
   Widget build(BuildContext context) {
+    
     super.build(context);
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -33,29 +35,32 @@ class _ServicesTabState extends State<ServicesTab>
         child: Column(
           mainAxisAlignment:
               MainAxisAlignment.center, //Center Column contents vertically,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            ElevatedButton(
-              onPressed: widget.onNext,
-              style: ElevatedButton.styleFrom(
-                  textStyle:
-                      TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  minimumSize: Size(100, 50)),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text('Далее'), // <-- Text
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Icon(
-                    // <-- Icon
-                    Icons.arrow_forward_ios_rounded,
-                    size: 24.0,
-                  ),
-                ],
+            Padding(
+              padding: EdgeInsets.only(right: 20),
+              child: ElevatedButton(
+                onPressed: widget.onNext,
+                style: ElevatedButton.styleFrom(
+                    textStyle:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    minimumSize: Size(100, 50)),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text('Далее'), // <-- Text
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Icon(
+                      // <-- Icon
+                      Icons.arrow_forward_ios_rounded,
+                      size: 24.0,
+                    ),
+                  ],
+                ),
               ),
-            ),
+            )
           ],
         ),
       ),
@@ -75,24 +80,58 @@ class _ServicesTabState extends State<ServicesTab>
                   ),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 32),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Выбраный салон: \n${Provider.of<BookingInfo>(context, listen: false).sName}',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w300,
-                        ),
+                      Row(
+                        children: [
+                          Text(
+                            'Выбраный салон: \n${Provider.of<BookingInfo>(context, listen: false).sName}',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w300,
+                            ),
+                          ),
+                          Spacer(),
+                          ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const ServicesAdd()),
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                              textStyle: TextStyle(
+                                  fontSize: 14, fontWeight: FontWeight.bold),
+                              minimumSize: Size(50, 60),
+                              maximumSize: Size(125, 80),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text('Добавить\n услугу'), // <-- Text
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Icon(
+                                  // <-- Icon
+                                  Icons.add_rounded,
+                                  size: 20.0,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                       const SizedBox(
                         height: 30,
                       ),
                       const Text(
-                        'Выберите желаемые услуги:',
+                        'Выбранные услуги:',
                         style: TextStyle(
-                          fontSize: 24,
+                          fontSize: 20,
                           fontWeight: FontWeight.w900,
                         ),
                       ),
@@ -106,7 +145,7 @@ class _ServicesTabState extends State<ServicesTab>
                       //     );
                       //   },
                       // ),
-                      ExpansionTileServices(),
+                      //ExpansionTileServices(),
                     ],
                   ),
                 ),

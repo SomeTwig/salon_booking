@@ -29,10 +29,13 @@ final List<FLSalon> flSalon = [
 ];
 
 final List<ServiceList> servicesList = [
-  ServiceList('Men\'s Hair Cut', 45, 30),
-  ServiceList('Women\'s Hair Cut', 60, 50),
-  ServiceList('Color & Blow Dry', 90, 75),
-  ServiceList('Oil Treatment', 30, 20),
+  ServiceList(1, "Аппаратный маникюр Baehr без покрытия", 2, "Руки", 300.00,
+      270.00, 10, 40),
+  ServiceList(
+      46, "Стрижка женская", 3, "Стрижка женская", 580.00, 522.00, 10, 50),
+  ServiceList(71, "Вечерний макияж", 5, "Макияж", 1000.00, 900.00, 10, 60),
+  ServiceList(
+      25, "Покрытие лаком Baehr руки", 2, "Руки", 120.00, 108.00, 10, 10),
 ];
 
 final List<MockDateTime> datetimes = [

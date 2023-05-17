@@ -32,9 +32,11 @@ class _TimeTabExampleState extends State<TimeTab>
 
     _selectedDay = _focusedDay;
     _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
-    Provider.of<BookingInfo>(context, listen: false).addDateTime(
-        DateFormat("yyyy-MM-dd").format(_selectedDay!),
-        _selectedEvents.value[_selectedIndex]);
+    if (_selectedEvents.value.isEmpty == false) {
+      Provider.of<BookingInfo>(context, listen: false).addDateTime(
+          DateFormat("yyyy-MM-dd").format(_selectedDay!),
+          _selectedEvents.value[_selectedIndex]);
+    }
   }
 
   @override
