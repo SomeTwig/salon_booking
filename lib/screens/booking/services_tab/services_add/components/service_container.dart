@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:test_1/constants/constants.dart';
 import 'package:test_1/models/models.dart';
 
+import 'package:provider/provider.dart';
 import 'package:test_1/data/data.dart';
 
 import '/route/route.dart' as route;
@@ -74,6 +75,9 @@ class _ServiceContainerState extends State<ServiceContainer>{
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20)),
                     onPressed: () {
+                      Provider.of<BookingInfo>(context, listen: false)
+                      .addService(widget.service);
+                      Navigator.pop(context);
                       setState(() {
                         isShow = true;
                       });

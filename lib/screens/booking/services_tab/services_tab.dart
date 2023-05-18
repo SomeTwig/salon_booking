@@ -24,7 +24,6 @@ class _ServicesTabState extends State<ServicesTab>
 
   @override
   Widget build(BuildContext context) {
-    
     super.build(context);
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -135,16 +134,7 @@ class _ServicesTabState extends State<ServicesTab>
                           fontWeight: FontWeight.w900,
                         ),
                       ),
-                      // ListView.builder(
-                      //   physics: const NeverScrollableScrollPhysics(),
-                      //   shrinkWrap: true,
-                      //   itemCount: flSalon.length,
-                      //   itemBuilder: (BuildContext context, int index) {
-                      //     return SalonContainer(
-                      //       flSalon: flSalon[index],
-                      //     );
-                      //   },
-                      // ),
+                      ServicesChosen(),
                       //ExpansionTileServices(),
                     ],
                   ),
@@ -154,6 +144,38 @@ class _ServicesTabState extends State<ServicesTab>
           ),
         ),
       ),
+    );
+  }
+}
+
+class ServicesChosen extends StatefulWidget {
+  const ServicesChosen({super.key});
+
+  @override
+  State<ServicesChosen> createState() => _ServicesChosenState();
+}
+
+class _ServicesChosenState extends State<ServicesChosen>
+    with SingleTickerProviderStateMixin {
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<BookingInfo>(
+      builder: (context, booking, child) {
+        if (booking.services.isEmpty == false) {
+          return ListView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: booking.services.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: Text(booking.services[index].serviceName),
+              );
+            },
+          );
+        } else {
+          return Text('Нет выбранных услуг');
+        }
+      },
     );
   }
 }
