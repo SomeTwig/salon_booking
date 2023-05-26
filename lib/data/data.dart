@@ -28,14 +28,47 @@ final List<FLSalon> flSalon = [
   )
 ];
 
-final List<ServiceList> servicesList = [
-  ServiceList(1, "Аппаратный маникюр Baehr без покрытия", 2, "Руки", 300.00,
-      270.00, 10, 40),
-  ServiceList(
-      46, "Стрижка женская", 3, "Стрижка женская", 580.00, 522.00, 10, 50),
-  ServiceList(71, "Вечерний макияж", 5, "Макияж", 1000.00, 900.00, 10, 60),
-  ServiceList(
-      25, "Покрытие лаком Baehr руки", 2, "Руки", 120.00, 108.00, 10, 10),
+final List<Service> servicesList = [
+  Service(
+    serviceId: 1,
+    serviceName: "Аппаратный маникюр Baehr без покрытия",
+    lineOfBusinessId: 2,
+    lineOfBusiness: "Руки",
+    price: 300.00,
+    discountedPrice: 270.00,
+    discountedPercent: 10,
+    duration: 40,
+  ),
+  Service(
+    serviceId: 46,
+    serviceName: "Стрижка женская",
+    lineOfBusinessId: 3,
+    lineOfBusiness: "Стрижка женская",
+    price: 580.00,
+    discountedPrice: 522.00,
+    discountedPercent: 10,
+    duration: 50,
+  ),
+  Service(
+    serviceId: 71,
+    serviceName: "Вечерний макияж",
+    lineOfBusinessId: 5,
+    lineOfBusiness: "Макияж",
+    price: 1000.00,
+    discountedPrice: 900.00,
+    discountedPercent: 10,
+    duration: 60,
+  ),
+  Service(
+    serviceId: 25,
+    serviceName: "Покрытие лаком Baehr руки",
+    lineOfBusinessId: 2,
+    lineOfBusiness: "Руки",
+    price: 120.00,
+    discountedPrice: 108.00,
+    discountedPercent: 10,
+    duration: 10,
+  ),
 ];
 
 final List<MockDateTime> datetimes = [

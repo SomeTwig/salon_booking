@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:test_1/route/route.dart' as route;
+import 'package:test_1/routes/route.dart' as route;
 
 Widget myDrawer(BuildContext context) {
   return Drawer(

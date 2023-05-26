@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:test_1/models/models.dart';
+import 'package:test_1/constants/constants.dart';
 import 'package:test_1/screens/booking/services_tab/services_add/services_add.dart';
 
 import 'package:test_1/screens/booking/services_tab/services_add/components/services_expand.dart';
@@ -65,6 +66,7 @@ class _ServicesTabState extends State<ServicesTab>
       ),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
+        padding: EdgeInsets.only(bottom: 70),
         child: SafeArea(
           child: Column(
             children: [
@@ -167,9 +169,37 @@ class _ServicesChosenState extends State<ServicesChosen>
             shrinkWrap: true,
             itemCount: booking.services.length,
             itemBuilder: (context, index) {
-              return ListTile(
-                title: Text(booking.services[index].serviceName),
-              );
+              return Container(
+                  margin: const EdgeInsets.symmetric(vertical: 15),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Stack(children: [
+                    Padding(
+                        padding: const EdgeInsets.only(top: 2, left: 30),
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(booking.services[index].serviceName),
+                              MaterialButton(
+                                color: myPrimaryColor,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20)),
+                                onPressed: () {
+                                  Provider.of<BookingInfo>(context,
+                                          listen: false)
+                                      .deleteService(booking.services[index]);
+                                },
+                                child: const Text(
+                                  'Удалить',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              ),
+                            ]))
+                  ]));
             },
           );
         } else {

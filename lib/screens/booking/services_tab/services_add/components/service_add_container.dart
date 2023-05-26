@@ -4,21 +4,21 @@ import 'package:test_1/models/models.dart';
 
 import 'package:provider/provider.dart';
 import 'package:test_1/data/data.dart';
+import 'package:test_1/providers/services_provider.dart';
 
-import '/route/route.dart' as route;
+import '../../../../../routes/route.dart' as route;
 
-class ServiceContainer extends StatefulWidget {
-  final ServiceList service;
+class ServiceAddContainer extends StatefulWidget {
+  final Service service;
 
-  const ServiceContainer({super.key, required this.service});
+  const ServiceAddContainer({super.key, required this.service});
 
   @override
-  State<ServiceContainer> createState() => _ServiceContainerState();
+  State<ServiceAddContainer> createState() => _ServiceAddContainerState();
 }
 
-class _ServiceContainerState extends State<ServiceContainer>{
+class _ServiceAddContainerState extends State<ServiceAddContainer> {
   bool isShow = false;
-
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +40,8 @@ class _ServiceContainerState extends State<ServiceContainer>{
                 Text(
                   widget.service.serviceName,
                   style: const TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 16,
                   ),
                 ),
                 const SizedBox(
@@ -51,7 +51,7 @@ class _ServiceContainerState extends State<ServiceContainer>{
                   widget.service.price.toString(),
                   style: const TextStyle(
                     fontSize: 14,
-                    fontWeight: FontWeight.w300,
+                    fontWeight: FontWeight.w400,
                     color: mySecondryTextColor,
                   ),
                 ),
@@ -67,7 +67,7 @@ class _ServiceContainerState extends State<ServiceContainer>{
                   ],
                 ),
                 const SizedBox(
-                  height: 15,
+                  height: 5,
                 ),
                 Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
                   MaterialButton(
@@ -75,9 +75,8 @@ class _ServiceContainerState extends State<ServiceContainer>{
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20)),
                     onPressed: () {
-                      Provider.of<BookingInfo>(context, listen: false)
-                      .addService(widget.service);
-                      Navigator.pop(context);
+                      Provider.of<ServiceList>(context, listen: false)
+                          .addService(widget.service);
                       setState(() {
                         isShow = true;
                       });
@@ -103,6 +102,8 @@ class _ServiceContainerState extends State<ServiceContainer>{
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20)),
                       onPressed: () {
+                         Provider.of<ServiceList>(context, listen: false)
+                          .deleteService(widget.service);
                         setState(() {
                           isShow = false;
                         });

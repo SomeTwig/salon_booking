@@ -1,4 +1,4 @@
-export 'flSalons.dart';
-export 'services_list_model.dart';
+export 'flSalon.dart';
+export 'service.dart';
 export 'date_time.dart';
 export 'booking_info.dart';

@@ -18,6 +18,7 @@ dependencies:
   intl: ^0.17.0
   table_calendar: ^3.0.8
   intl_phone_number_input: ^0.7.3+1
+  http: ^0.13.6
 
 dev_dependencies:
   flutter_test:

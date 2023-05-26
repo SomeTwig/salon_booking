@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'route/route.dart' as route;
+import 'routes/route.dart' as route;
 import 'package:test_1/screens/home/home.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:test_1/models/models.dart';
+import 'package:test_1/providers/services_provider.dart';
 
 void main() {
-  initializeDateFormatting().then((_) => runApp(ChangeNotifierProvider(
-        create: (context) => BookingInfo(),
+  initializeDateFormatting().then(
+    (_) => runApp(
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (context) => BookingInfo()),
+          ChangeNotifierProvider(create: (context) => ServiceList()),
+        ],
         child: MyApp(),
-      )));
+      ),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {

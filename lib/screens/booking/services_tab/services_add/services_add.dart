@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:test_1/models/models.dart';
+import 'package:test_1/providers/services_provider.dart';
 
 import 'package:test_1/screens/booking/services_tab/services_add/components/services_expand.dart';
 import 'package:test_1/data/data.dart';
@@ -15,7 +16,6 @@ class ServicesAdd extends StatefulWidget {
 class _ServicesAddState extends State<ServicesAdd> {
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: Container(
@@ -28,15 +28,17 @@ class _ServicesAddState extends State<ServicesAdd> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
-                padding: EdgeInsets.only(left: 20),
+                padding: EdgeInsets.only(left: 15),
                 child: ElevatedButton(
                   onPressed: () {
+                    Provider.of<ServiceList>(context, listen: false)
+                        .deleteAllServices();
                     Navigator.pop(context);
                   },
                   style: ElevatedButton.styleFrom(
                       textStyle:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                      minimumSize: Size(100, 50)),
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      minimumSize: Size(70, 40)),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -47,7 +49,7 @@ class _ServicesAddState extends State<ServicesAdd> {
                       Icon(
                         // <-- Icon
                         Icons.cancel_outlined,
-                        size: 24.0,
+                        size: 20.0,
                       ),
                     ],
                   ),
@@ -55,15 +57,21 @@ class _ServicesAddState extends State<ServicesAdd> {
               ),
               Spacer(),
               Padding(
-                padding: EdgeInsets.only(right: 20),
+                padding: EdgeInsets.only(right: 15),
                 child: ElevatedButton(
                   onPressed: () {
+                    Provider.of<BookingInfo>(context, listen: false)
+                        .addServices(
+                            Provider.of<ServiceList>(context, listen: false)
+                                .services);
+                    Provider.of<ServiceList>(context, listen: false)
+                        .deleteAllServices();
                     Navigator.pop(context);
                   },
                   style: ElevatedButton.styleFrom(
                       textStyle:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                      minimumSize: Size(100, 50)),
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      minimumSize: Size(70, 40)),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -74,7 +82,7 @@ class _ServicesAddState extends State<ServicesAdd> {
                       Icon(
                         // <-- Icon
                         Icons.check_circle_outline_rounded,
-                        size: 24.0,
+                        size: 20.0,
                       ),
                     ],
                   ),

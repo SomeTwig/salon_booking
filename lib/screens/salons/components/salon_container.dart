@@ -4,7 +4,7 @@ import 'package:test_1/models/models.dart';
 
 import 'package:provider/provider.dart';
 
-import '/route/route.dart' as route;
+import '../../../routes/route.dart' as route;
 
 class SalonContainer extends StatefulWidget {
   final FLSalon flSalon;

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:test_1/data/data.dart';
 import 'package:test_1/screens/salons/components/salon_container.dart';
 
-import '/route/route.dart' as route;
+import '../../routes/route.dart' as route;
 
 class SalonsPage extends StatefulWidget {
   const SalonsPage({super.key});

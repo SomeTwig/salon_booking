@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../widgets/appdrawer.dart';
-import '/route/route.dart' as route;
+import '../../routes/route.dart' as route;
 
 class MyHomePage extends StatefulWidget {
   @override
