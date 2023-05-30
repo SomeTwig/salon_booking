@@ -23,12 +23,11 @@ class _ServicesAddState extends State<ServicesAdd> {
           color: Color.fromARGB(157, 192, 158, 120),
           height: 70,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment
-                .spaceEvenly, //Center Column contents vertically,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
-                padding: EdgeInsets.only(left: 15),
+                padding: EdgeInsets.only(left: 10),
                 child: ElevatedButton(
                   onPressed: () {
                     Provider.of<ServiceList>(context, listen: false)
@@ -57,7 +56,7 @@ class _ServicesAddState extends State<ServicesAdd> {
               ),
               Spacer(),
               Padding(
-                padding: EdgeInsets.only(right: 15),
+                padding: EdgeInsets.only(right: 10),
                 child: ElevatedButton(
                   onPressed: () {
                     Provider.of<BookingInfo>(context, listen: false)

@@ -7,8 +7,9 @@ import 'package:test_1/models/models.dart';
 import 'package:test_1/data/data.dart';
 
 class TimeTab extends StatefulWidget {
-  const TimeTab({super.key, required this.onNext});
+  const TimeTab({super.key, required this.onNext, required this.onPrev});
   final VoidCallback onNext;
+  final VoidCallback onPrev;
 
   @override
   State<TimeTab> createState() => _TimeTabExampleState();
@@ -83,39 +84,68 @@ class _TimeTabExampleState extends State<TimeTab>
           width: MediaQuery.of(context).size.width,
           color: Color.fromARGB(157, 192, 158, 120),
           height: 70,
-          child: Column(
-            mainAxisAlignment:
-                MainAxisAlignment.center, //Center Column contents vertically,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              ElevatedButton(
-                onPressed: () => {
-                  if (_selectedEvents.value.isNotEmpty == true)
-                    {
-                      Provider.of<BookingInfo>(context, listen: false)
-                          .addDateTime(
-                              DateFormat("yyyy-MM-dd").format(_selectedDay!),
-                              _selectedEvents.value[_selectedIndex]),
-                    },
-                  widget.onNext(),
-                },
-                style: ElevatedButton.styleFrom(
-                    textStyle:
-                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    minimumSize: Size(100, 50)),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text('Далее'),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Icon(
-                      // <-- Icon
-                      Icons.arrow_forward_ios_rounded,
-                      size: 24.0,
-                    ),
-                  ],
+              Padding(
+                padding: EdgeInsets.only(left: 10),
+                child: ElevatedButton(
+                  onPressed: () => {
+                    widget.onPrev(),
+                  },
+                  style: ElevatedButton.styleFrom(
+                      textStyle:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      minimumSize: Size(100, 50)),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text('Назад'),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Icon(
+                        // <-- Icon
+                        Icons.arrow_back_ios_rounded,
+                        size: 24.0,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Spacer(),
+              Padding(
+                padding: EdgeInsets.only(right: 10),
+                child: ElevatedButton(
+                  onPressed: () => {
+                    if (_selectedEvents.value.isNotEmpty == true)
+                      {
+                        Provider.of<BookingInfo>(context, listen: false)
+                            .addDateTime(
+                                DateFormat("yyyy-MM-dd").format(_selectedDay!),
+                                _selectedEvents.value[_selectedIndex]),
+                      },
+                    widget.onNext(),
+                  },
+                  style: ElevatedButton.styleFrom(
+                      textStyle:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      minimumSize: Size(100, 50)),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text('Далее'),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Icon(
+                        // <-- Icon
+                        Icons.arrow_forward_ios_rounded,
+                        size: 24.0,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],

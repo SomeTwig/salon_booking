@@ -4,8 +4,11 @@ import 'package:provider/provider.dart';
 import 'package:test_1/models/models.dart';
 
 class AppointmentTab extends StatefulWidget {
-  const AppointmentTab({super.key, required this.onSubmit});
+  const AppointmentTab(
+      {super.key, required this.onSubmit, required this.onPrev});
   final VoidCallback onSubmit;
+  final VoidCallback onPrev;
+
   @override
   State<AppointmentTab> createState() => _AppointmentTabState();
 }
@@ -33,41 +36,71 @@ class _AppointmentTabState extends State<AppointmentTab>
         width: MediaQuery.of(context).size.width,
         color: Color.fromARGB(157, 192, 158, 120),
         height: 70,
-        child: Column(
-          mainAxisAlignment:
-              MainAxisAlignment.center, //Center Column contents vertically,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            ElevatedButton(
-              onPressed: () {
-                if (formKey.currentState!.validate()) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Создание бронировки... \n')),
-                  );
-                  formKey.currentState?.save();
-                  Provider.of<BookingInfo>(context, listen: false)
-                      .addClientInfo(
-                          controllerName.text,
-                          pNumber.phoneNumber.toString(),
-                          controllerComment.text,
-                          check!);
-                  widget.onSubmit();
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                        content: Text('Пожалуйста, проверьте ваши данные')),
-                  );
-                }
-              },
-              style: ElevatedButton.styleFrom(
-                  textStyle:
-                      TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  minimumSize: Size(100, 50)),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text('Бронировать'),
-                ],
+            Container(
+              padding: EdgeInsets.only(left: 10),
+              child: ElevatedButton(
+                onPressed: () => {
+                  widget.onPrev(),
+                },
+                style: ElevatedButton.styleFrom(
+                    textStyle:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    minimumSize: Size(100, 50)),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text('Назад'),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Icon(
+                      // <-- Icon
+                      Icons.arrow_back_ios_rounded,
+                      size: 24.0,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Spacer(),
+            Container(
+              padding: EdgeInsets.only(right: 10),
+              child: ElevatedButton(
+                onPressed: () {
+                  if (formKey.currentState!.validate()) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                          content: Text('Создание бронировки... \n')),
+                    );
+                    formKey.currentState?.save();
+                    Provider.of<BookingInfo>(context, listen: false)
+                        .addClientInfo(
+                            controllerName.text,
+                            pNumber.phoneNumber.toString(),
+                            controllerComment.text,
+                            check!);
+                    widget.onSubmit();
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                          content: Text('Пожалуйста, проверьте ваши данные')),
+                    );
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                    textStyle:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    minimumSize: Size(100, 50)),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text('Бронировать'),
+                  ],
+                ),
               ),
             ),
           ],

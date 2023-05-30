@@ -20,6 +20,26 @@ class ServiceAddContainer extends StatefulWidget {
 class _ServiceAddContainerState extends State<ServiceAddContainer> {
   bool isShow = false;
 
+  bool _isAddButtonDisabled = false;
+  bool _isDeleteButtonDisabled = true;
+
+  void _handleAddButtonTap() {
+    setState(() {
+      _isAddButtonDisabled = true;
+      _isDeleteButtonDisabled = false;
+    });
+    Provider.of<ServiceList>(context, listen: false).addService(widget.service);
+  }
+
+  void _handleDeleteButtonTap() {
+    setState(() {
+      _isAddButtonDisabled = false;
+      _isDeleteButtonDisabled = true;
+    });
+    Provider.of<ServiceList>(context, listen: false)
+        .deleteService(widget.service);
+  }
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -37,87 +57,53 @@ class _ServiceAddContainerState extends State<ServiceAddContainer> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  widget.service.serviceName,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 16,
-                  ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  widget.service.price.toString(),
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: mySecondryTextColor,
-                  ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const SizedBox(
-                      width: 5,
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 5,
+                IntrinsicHeight(
+                  child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          flex: 10,
+                          child: Text(
+                            widget.service.serviceName,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ),
+                        const Spacer(),
+                        IconButton(
+                          icon: const Icon(Icons.add),
+                          tooltip: 'Выбрать услугу',
+                          onPressed:
+                              _isAddButtonDisabled ? null : _handleAddButtonTap,
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        VerticalDivider(),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.delete),
+                          tooltip: 'Удалить услугу',
+                          onPressed: _isDeleteButtonDisabled
+                              ? null
+                              : _handleDeleteButtonTap,
+                        ),
+                      ]),
                 ),
                 Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                  MaterialButton(
-                    color: myPrimaryColor,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20)),
-                    onPressed: () {
-                      Provider.of<ServiceList>(context, listen: false)
-                          .addService(widget.service);
-                      setState(() {
-                        isShow = true;
-                      });
-                    },
-                    child: const Text(
-                      'Выбрать',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600),
+                  Text(
+                    widget.service.price.toString(),
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: mySecondryTextColor,
                     ),
                   ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  Visibility(
-                    visible: isShow,
-                    // maintainSize: true, //NEW
-                    // maintainAnimation: true, //NEW
-                    // maintainState: true, //NEW
-                    child: MaterialButton(
-                      color: myPrimaryColor,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
-                      onPressed: () {
-                         Provider.of<ServiceList>(context, listen: false)
-                          .deleteService(widget.service);
-                        setState(() {
-                          isShow = false;
-                        });
-                      },
-                      child: const Text(
-                        'Удалить',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600),
-                      ),
-                    ),
-                  )
-                ])
+                ]),
               ],
             ),
           )

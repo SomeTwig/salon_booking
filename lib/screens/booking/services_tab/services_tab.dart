@@ -32,32 +32,36 @@ class _ServicesTabState extends State<ServicesTab>
         width: MediaQuery.of(context).size.width,
         color: Color.fromARGB(157, 192, 158, 120),
         height: 70,
-        child: Column(
-          mainAxisAlignment:
-              MainAxisAlignment.center, //Center Column contents vertically,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Padding(
-              padding: EdgeInsets.only(right: 20),
-              child: ElevatedButton(
-                onPressed: widget.onNext,
-                style: ElevatedButton.styleFrom(
-                    textStyle:
-                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    minimumSize: Size(100, 50)),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text('Далее'), // <-- Text
-                    SizedBox(
-                      width: 5,
+            Expanded(
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: Padding(
+                  padding: EdgeInsets.only(right: 10),
+                  child: ElevatedButton(
+                    onPressed: widget.onNext,
+                    style: ElevatedButton.styleFrom(
+                        textStyle: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                        minimumSize: Size(100, 50)),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text('Далее'), // <-- Text
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Icon(
+                          // <-- Icon
+                          Icons.arrow_forward_ios_rounded,
+                          size: 24.0,
+                        ),
+                      ],
                     ),
-                    Icon(
-                      // <-- Icon
-                      Icons.arrow_forward_ios_rounded,
-                      size: 24.0,
-                    ),
-                  ],
+                  ),
                 ),
               ),
             )

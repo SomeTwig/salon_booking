@@ -69,11 +69,19 @@ class _BookingTabsState extends State<BookingTabs>
       ServicesTab(
         onNext: () => _tabController.index = 1,
       ),
-      TimeTab(onNext: () => _tabController.index = 2,),
-      AppointmentTab(onSubmit: () {
-        int count = 0;
-        Navigator.of(context).popUntil((_) => count++ >= 2);
-      },),
+      TimeTab(
+        onNext: () => _tabController.index = 2,
+        onPrev: () => _tabController.index = 0,
+      ),
+      AppointmentTab(
+        onSubmit: () {
+          int count = 0;
+          Navigator.of(context).popUntil(
+            (_) => count++ >= 2,
+          );
+        },
+        onPrev: () => _tabController.index = 1,
+      ),
     ];
   }
 
