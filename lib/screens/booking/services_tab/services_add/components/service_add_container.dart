@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:test_1/constants/constants.dart';
-import 'package:test_1/models/models.dart';
+import 'package:fl_booking_app/constants/constants.dart';
+import 'package:fl_booking_app/models/models.dart';
 
 import 'package:provider/provider.dart';
-import 'package:test_1/data/data.dart';
-import 'package:test_1/providers/services_provider.dart';
+import 'package:fl_booking_app/data/data.dart';
+import 'package:fl_booking_app/providers/services_provider.dart';
 
 import '../../../../../routes/route.dart' as route;
 
 class ServiceAddContainer extends StatefulWidget {
-  final Service service;
+  final FLService service;
 
   const ServiceAddContainer({super.key, required this.service});
 

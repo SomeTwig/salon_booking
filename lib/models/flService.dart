@@ -1,11 +1,10 @@
+// ignore: file_names
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:async';
 import 'dart:convert';
 
-class Service {
-  int serviceId = -1;
+class FLService {
+  int serviceId;
+  int serviceParamId = -1;
   String serviceName = '';
   int lineOfBusinessId = -1;
   String lineOfBusiness = '';
@@ -14,7 +13,11 @@ class Service {
   int discountedPercent = 0;
   int duration = 0;
 
-  Service(
+  String get key {
+    return ('$serviceId|${serviceParamId > 0 ? serviceParamId : '-1'}');
+  }
+
+  FLService(
       {required this.serviceId,
       required this.serviceName,
       required this.lineOfBusinessId,
@@ -24,12 +27,12 @@ class Service {
       required this.discountedPercent,
       required this.duration});
 
-  factory Service.fromJson(Map<String, dynamic> json) {
+  factory FLService.fromJson(Map<String, dynamic> json) {
     int aDuration = 0;
     if (json['Duration'] != null) {
       aDuration = int.parse(json['Duration'].toString());
     }
-    return Service(
+    return FLService(
       serviceId: int.parse(json['ServiceId'].toString()),
       serviceName: json['ServiceName'] as String,
       lineOfBusinessId: int.parse(json['LineOfBusinessId'].toString()),
@@ -43,7 +46,7 @@ class Service {
   }
 }
 
-Future<List<Service>> fetchServices(http.Client client) async {
+/* Future<List<Service>> fetchServices(http.Client client) async {
   final response = await client.get(Uri.parse(
       'https://fltest.x-tend.com.ua/api/GetBookingPrice?networkId=1&language=2&discountcode=JENPCZ4FSC'));
 
@@ -57,3 +60,4 @@ List<Service> parseServices(String responseBody) {
 
   return parsed.map<Service>((json) => Service.fromJson(json)).toList();
 }
+ */

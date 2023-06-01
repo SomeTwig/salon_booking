@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:test_1/constants/constants.dart';
-import 'package:test_1/models/models.dart';
+import 'package:fl_booking_app/constants/constants.dart';
+import 'package:fl_booking_app/models/models.dart';
 
 import 'package:provider/provider.dart';
 

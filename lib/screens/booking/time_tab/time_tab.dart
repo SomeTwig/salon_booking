@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:provider/provider.dart';
-import 'package:test_1/models/models.dart';
+import 'package:fl_booking_app/models/models.dart';
 
-import 'package:test_1/data/data.dart';
+import 'package:fl_booking_app/data/data.dart';
 
 class TimeTab extends StatefulWidget {
   const TimeTab({super.key, required this.onNext, required this.onPrev});

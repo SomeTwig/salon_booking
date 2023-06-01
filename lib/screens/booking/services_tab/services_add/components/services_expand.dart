@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:test_1/models/models.dart';
+import 'package:fl_booking_app/models/models.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:test_1/data/data.dart';
-import 'package:test_1/screens/booking/services_tab/services_add/components/service_add_container.dart';
+import 'package:fl_booking_app/providers/providers.dart';
+import 'package:fl_booking_app/data/data.dart';
+import 'package:fl_booking_app/screens/booking/services_tab/services_add/components/service_add_container.dart';
 
 class ExpansionTileServices extends StatefulWidget {
   const ExpansionTileServices({super.key});
@@ -13,21 +14,21 @@ class ExpansionTileServices extends StatefulWidget {
 }
 
 class _ExpansionTileServicesState extends State<ExpansionTileServices> {
-  late Future<List<Service>> futureServiceList;
+  late Future<List<FLService>> futureServiceList;
   @override
   void initState() {
     super.initState();
-    futureServiceList = fetchServices(http.Client());
+    futureServiceList = ServiceList().fetchAllServices();
   }
 
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: FutureBuilder<List<Service>>(
+      child: FutureBuilder<List<FLService>>(
         future: futureServiceList,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            List<Service> serviceList = snapshot.data!;
+            List<FLService> serviceList = snapshot.data!;
             var seen = Set<int>();
             for (var element in serviceList) {
               seen.add(element.lineOfBusinessId);
@@ -39,14 +40,15 @@ class _ExpansionTileServicesState extends State<ExpansionTileServices> {
                 shrinkWrap: true,
                 itemCount: seen.length,
                 itemBuilder: (BuildContext context, int index) {
-                  List<Service> serviceLineList = serviceList
+                  List<FLService> serviceLineList = serviceList
                       .where(
                           (element) => element.lineOfBusinessId == map[index])
                       .toList();
+                  //print(serviceLineList);
                   return ExpansionTile(
                     maintainState: true,
                     title: Text(
-                      serviceLineList.first.lineOfBusiness,
+                      serviceLineList.first.lineOfBusiness!,
                       style: TextStyle(
                           fontSize: 16.0, fontWeight: FontWeight.w500),
                     ),
@@ -56,9 +58,19 @@ class _ExpansionTileServicesState extends State<ExpansionTileServices> {
                         shrinkWrap: true,
                         itemCount: serviceLineList.length,
                         itemBuilder: (BuildContext context, int index) {
-                          return ServiceAddContainer(
-                            service: serviceLineList[index],
-                          );
+                          
+                          // print(serviceLineList.length);
+                          FLService aService = serviceLineList[index];
+List<FLService> serviceParams = serviceList.where((element) => element.serviceParamId == serviceLineList[index].serviceParamId &&  element.serviceId == serviceLineList[index].serviceId).toList();
+                          for(var el in serviceParams){
+                            print(el.serviceName);
+                            print(el.serviceParamId.toString());
+                          }
+                          // print(aService.serviceParamId.toString());
+                          // print(aService.serviceName);
+                            return ServiceAddContainer(
+                              service: aService,
+                            );
                         },
                       ),
                     ],

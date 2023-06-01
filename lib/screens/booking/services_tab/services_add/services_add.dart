@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:test_1/models/models.dart';
-import 'package:test_1/providers/services_provider.dart';
+import 'package:fl_booking_app/models/models.dart';
+import 'package:fl_booking_app/providers/services_provider.dart';
 
-import 'package:test_1/screens/booking/services_tab/services_add/components/services_expand.dart';
-import 'package:test_1/data/data.dart';
+import 'package:fl_booking_app/screens/booking/services_tab/services_add/components/services_expand.dart';
+import 'package:fl_booking_app/data/data.dart';
 
 class ServicesAdd extends StatefulWidget {
   const ServicesAdd({super.key});

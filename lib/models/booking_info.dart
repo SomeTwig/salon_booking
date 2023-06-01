@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:test_1/models/service.dart';
-import 'package:test_1/providers/services_provider.dart';
+import 'package:fl_booking_app/models/flService.dart';
+import 'package:fl_booking_app/providers/services_provider.dart';
 
 class BookingInfo extends ChangeNotifier {
   String _date = '';
   String _time = '';
   String _salonName = '';
-  List<Service> _services = [];
+  List<FLService> _services = [];
   // double _priceTotal = 0;
   String _clientName = '';
   String _clientPhone = '';
@@ -16,7 +16,7 @@ class BookingInfo extends ChangeNotifier {
   String get bDate => _date;
   String get bTime => _time;
   String get sName => _salonName;
-  List<Service> get services => _services;
+  List<FLService> get services => _services;
   String get clientName => _clientName;
   String get clientPhone => _clientPhone;
   String get clientComment => _clientComment;
@@ -32,7 +32,7 @@ class BookingInfo extends ChangeNotifier {
     _time = aTime;
   }
 
-  void addServices(List<Service> aServices) {
+  void addServices(List<FLService> aServices) {
     for (var service in aServices) {
       if (_services.indexWhere(
               (element) => element.serviceId == service.serviceId) ==
@@ -43,7 +43,7 @@ class BookingInfo extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addService(Service aService) {
+  void addService(FLService aService) {
     // for (var element in _services) {
     //   if (element.serviceId == aService.serviceId) {
     //     print(element.serviceName);
@@ -56,7 +56,7 @@ class BookingInfo extends ChangeNotifier {
     // }
   }
 
-  void deleteService(Service aService) {
+  void deleteService(FLService aService) {
     if (_services.contains(aService) == true) {
       _services.remove(aService);
       notifyListeners();

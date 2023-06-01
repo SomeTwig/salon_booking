@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 // Define Routes
-import 'package:test_1/screens/home/home.dart';
-import 'package:test_1/screens/booking/booking.dart';
-import 'package:test_1/screens/salons/salons.dart';
-import 'package:test_1/models/models.dart';
+import 'package:fl_booking_app/screens/home/home.dart';
+import 'package:fl_booking_app/screens/booking/booking.dart';
+import 'package:fl_booking_app/screens/salons/salons.dart';
+import 'package:fl_booking_app/models/models.dart';
 
 const String homePage = 'home';
 const String bookingPage = 'booking';

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:test_1/models/models.dart';
-import 'package:test_1/constants/constants.dart';
-import 'package:test_1/screens/booking/services_tab/services_add/services_add.dart';
+import 'package:fl_booking_app/models/models.dart';
+import 'package:fl_booking_app/constants/constants.dart';
+import 'package:fl_booking_app/screens/booking/services_tab/services_add/services_add.dart';
 
-import 'package:test_1/screens/booking/services_tab/services_add/components/services_expand.dart';
-import 'package:test_1/data/data.dart';
+import 'package:fl_booking_app/screens/booking/services_tab/services_add/components/services_expand.dart';
+import 'package:fl_booking_app/data/data.dart';
 
 //Main body of the page
 class ServicesTab extends StatefulWidget {

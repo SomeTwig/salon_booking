@@ -1,5 +1,5 @@
-name: test_1
-description: A new Flutter project.
+name: fl_booking_app
+description: FastLine Mobile application Flutter project.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
