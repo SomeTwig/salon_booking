@@ -27,7 +27,7 @@ class ServiceList with ChangeNotifier {
 
       return res;
     } catch (e) {
-      print('Error: $e');
+      print('fetchAllServices Error: $e');
 
       _status = ServiceStatus.failed;
       return [];

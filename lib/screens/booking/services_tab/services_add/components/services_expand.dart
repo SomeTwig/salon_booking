@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:fl_booking_app/providers/providers.dart';
 import 'package:fl_booking_app/data/data.dart';
 import 'package:fl_booking_app/screens/booking/services_tab/services_add/components/service_add_container.dart';
+import 'package:fl_booking_app/screens/booking/services_tab/services_add/components/services_sort.dart';
 
 class ExpansionTileServices extends StatefulWidget {
   const ExpansionTileServices({super.key});
@@ -28,49 +29,54 @@ class _ExpansionTileServicesState extends State<ExpansionTileServices> {
         future: futureServiceList,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            List<FLService> serviceList = snapshot.data!;
-            var seen = Set<int>();
-            for (var element in serviceList) {
-              seen.add(element.lineOfBusinessId);
-            }
-            Map map = seen.toList().asMap();
+            ServicesByLOB servicesList = ServicesByLOB(snapshot.data!);
             return Card(
               child: ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: seen.length,
+                itemCount: servicesList.serviceMapByLOB.length,
                 itemBuilder: (BuildContext context, int index) {
-                  List<FLService> serviceLineList = serviceList
-                      .where(
-                          (element) => element.lineOfBusinessId == map[index])
-                      .toList();
-                  //print(serviceLineList);
+                  String lineListkey = servicesList.serviceMapByLOB.keys.elementAt(index);
                   return ExpansionTile(
                     maintainState: true,
                     title: Text(
-                      serviceLineList.first.lineOfBusiness!,
+                      lineListkey,
                       style: TextStyle(
                           fontSize: 16.0, fontWeight: FontWeight.w500),
                     ),
                     children: <Widget>[
+                      //ListView Builder for services HasParameter = false
                       ListView.builder(
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
-                        itemCount: serviceLineList.length,
+                        itemCount: servicesList.serviceMapByLOB[lineListkey].servicesWithNoParam.length,
                         itemBuilder: (BuildContext context, int index) {
-                          
-                          // print(serviceLineList.length);
-                          FLService aService = serviceLineList[index];
-List<FLService> serviceParams = serviceList.where((element) => element.serviceParamId == serviceLineList[index].serviceParamId &&  element.serviceId == serviceLineList[index].serviceId).toList();
-                          for(var el in serviceParams){
-                            print(el.serviceName);
-                            print(el.serviceParamId.toString());
-                          }
-                          // print(aService.serviceParamId.toString());
-                          // print(aService.serviceName);
-                            return ServiceAddContainer(
-                              service: aService,
-                            );
+                          FLService aService =
+                              servicesList.serviceMapByLOB[lineListkey].servicesWithNoParam[index];
+                          return ServiceAddContainer(
+                            service: aService,
+                          );
+                        },
+                      ),
+                      //ListView Builder for services with HasParameter = true
+                      // UNFINISHED - TEST
+                      ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: servicesList.serviceMapByLOB[lineListkey].servicesMapWithParam.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          print(servicesList.serviceMapByLOB[lineListkey].servicesMapWithParam.length);
+                          print(index);
+                          int mapKey = servicesList.serviceMapByLOB[lineListkey]
+                              .servicesMapWithParam
+                              .keys
+                              .elementAt(index);
+                          // List<FLService> aServices =
+                          //     servicesList.serviceMapByLOB[lineListkey].servicesMapWithParam[mapKey];
+                          // for (var el in aServices) {
+                          //   print(mapKey);
+                          // }
+                          return Text(mapKey.toString());
                         },
                       ),
                     ],

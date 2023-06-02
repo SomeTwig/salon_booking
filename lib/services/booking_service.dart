@@ -65,7 +65,7 @@ class BookingService {
       print('Connection timeout: $e');
       throw Exception('Failed to call Web-API method. Connection timeout');
     } on Error catch (e) {
-      print('Error: $e');
+      print('_callAPI Error: $e');
       rethrow;
     }
   }

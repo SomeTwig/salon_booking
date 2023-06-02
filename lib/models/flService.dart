@@ -1,6 +1,7 @@
 // ignore: file_names
 import 'package:flutter/foundation.dart';
 import 'dart:convert';
+import 'package:string_validator/string_validator.dart';
 
 class FLService {
   int serviceId;
@@ -8,6 +9,7 @@ class FLService {
   String serviceName = '';
   int lineOfBusinessId = -1;
   String lineOfBusiness = '';
+  bool hasParam;
   double price = 0;
   double discountedPrice = 0;
   int discountedPercent = 0;
@@ -22,6 +24,7 @@ class FLService {
       required this.serviceName,
       required this.lineOfBusinessId,
       required this.lineOfBusiness,
+      required this.hasParam,
       required this.price,
       required this.discountedPrice,
       required this.discountedPercent,
@@ -32,11 +35,13 @@ class FLService {
     if (json['Duration'] != null) {
       aDuration = int.parse(json['Duration'].toString());
     }
+    print(json['HasParam']);
     return FLService(
       serviceId: int.parse(json['ServiceId'].toString()),
       serviceName: json['ServiceName'] as String,
       lineOfBusinessId: int.parse(json['LineOfBusinessId'].toString()),
       lineOfBusiness: json['LineOfBusiness'] as String,
+      hasParam: toBoolean(json['HasParam'].toString()),
       price: double.parse(json['Price'].toString()),
       discountedPrice: double.parse(json['DiscountedPrice'].toString()),
       discountedPercent:
