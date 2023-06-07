@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:fl_booking_app/screens/home/home.dart';
 import 'package:fl_booking_app/screens/booking/booking.dart';
 import 'package:fl_booking_app/screens/salons/salons.dart';
-import 'package:fl_booking_app/models/models.dart';
 
 const String homePage = 'home';
 const String bookingPage = 'booking';

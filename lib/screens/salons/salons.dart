@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:fl_booking_app/data/data.dart';
 import 'package:fl_booking_app/screens/salons/components/salon_container.dart';
 
-import '../../routes/route.dart' as route;
 
 class SalonsPage extends StatefulWidget {
   const SalonsPage({super.key});

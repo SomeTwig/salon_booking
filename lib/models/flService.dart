@@ -1,19 +1,20 @@
 // ignore: file_names
-import 'package:flutter/foundation.dart';
-import 'dart:convert';
 import 'package:string_validator/string_validator.dart';
 
 class FLService {
   int serviceId;
   int serviceParamId = -1;
-  String serviceName = '';
-  int lineOfBusinessId = -1;
-  String lineOfBusiness = '';
+  String serviceName;
+  String serviceParam = '';
+  int lineOfBusinessId;
+  String lineOfBusiness;
   bool hasParam;
-  double price = 0;
+  double price;
   double discountedPrice = 0;
   int discountedPercent = 0;
-  int duration = 0;
+  int duration;
+
+  int quantity = 0;
 
   String get key {
     return ('$serviceId|${serviceParamId > 0 ? serviceParamId : '-1'}');

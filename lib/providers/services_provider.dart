@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:fl_booking_app/models/flService.dart';
 import 'package:fl_booking_app/constants/constants.dart';
@@ -37,17 +36,23 @@ class ServiceList with ChangeNotifier {
   void addService(FLService aService) {
     for (var element in _services) {
       if (element.key == aService.key) {
-        print(element.serviceName);
+        element.quantity++;
         return;
       }
     }
+    aService.quantity++;
     _services.add(aService);
     notifyListeners();
   }
 
   void deleteService(FLService aService) {
     if (_services.contains(aService) == true) {
-      _services.remove(aService);
+      int qty = _services
+          .firstWhere((element) => element.key == aService.key)
+          .quantity--;
+      if (qty == 0) {
+        _services.remove(aService);
+      }
       notifyListeners();
     }
   }

@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:fl_booking_app/models/models.dart';
-import 'package:fl_booking_app/constants/constants.dart';
 import 'package:fl_booking_app/screens/booking/services_tab/services_add/services_add.dart';
-
-import 'package:fl_booking_app/screens/booking/services_tab/services_add/components/services_expand.dart';
-import 'package:fl_booking_app/data/data.dart';
 
 //Main body of the page
 class ServicesTab extends StatefulWidget {
@@ -110,8 +106,6 @@ class _ServicesTabState extends State<ServicesTab>
                             style: ElevatedButton.styleFrom(
                               textStyle: TextStyle(
                                   fontSize: 14, fontWeight: FontWeight.bold),
-                              minimumSize: Size(50, 60),
-                              maximumSize: Size(125, 80),
                             ),
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
@@ -168,48 +162,104 @@ class _ServicesChosenState extends State<ServicesChosen>
     return Consumer<BookingInfo>(
       builder: (context, booking, child) {
         if (booking.services.isEmpty == false) {
-          return ListView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: booking.services.length,
-            itemBuilder: (context, index) {
-              return Container(
-                  margin: const EdgeInsets.symmetric(vertical: 15),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Stack(children: [
-                    Padding(
-                        padding: const EdgeInsets.only(top: 2, left: 30),
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(booking.services[index].serviceName),
-                              MaterialButton(
-                                color: myPrimaryColor,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20)),
-                                onPressed: () {
-                                  Provider.of<BookingInfo>(context,
-                                          listen: false)
-                                      .deleteService(booking.services[index]);
-                                },
-                                child: const Text(
-                                  'Удалить',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                              ),
-                            ]))
-                  ]));
-            },
+          return SafeArea(
+            child: SizedBox(
+              height: 300,
+              child: ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: booking.services.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                      margin: const EdgeInsets.symmetric(vertical: 15),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Stack(children: [
+                        Padding(
+                            padding: const EdgeInsets.only(top: 2, left: 10),
+                            child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Expanded(
+                                      flex: 10,
+                                      child: Text(
+                                          booking.services[index].serviceName)),
+                                  const Spacer(),
+                                  // MaterialButton(
+                                  //   color: myPrimaryColor,
+                                  //   shape: RoundedRectangleBorder(
+                                  //       borderRadius: BorderRadius.circular(20)),
+                                  //   onPressed: () {
+                                  //     Provider.of<BookingInfo>(context,
+                                  //             listen: false)
+                                  //         .deleteService(booking.services[index]);
+                                  //   },
+                                  //   child: const Text(
+                                  //     'Удалить',
+                                  //     style: TextStyle(
+                                  //         color: Colors.white,
+                                  //         fontSize: 16,
+                                  //         fontWeight: FontWeight.w600),
+                                  //   ),
+                                  // ),
+                                  _quantityControl(booking.services[index]),
+                                ]))
+                      ]));
+                },
+              ),
+            ),
           );
         } else {
           return Text('Нет выбранных услуг');
         }
       },
+    );
+  }
+
+  Widget _quantityControl(FLService aService) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          _decrementButton(aService),
+          const SizedBox(
+            width: 15,
+          ),
+          Text(
+            '${aService.quantity}',
+            style: TextStyle(fontSize: 18.0),
+          ),
+          const SizedBox(
+            width: 15,
+          ),
+          _incrementButton(aService),
+        ],
+      ),
+    );
+  }
+
+  Widget _incrementButton(FLService aService) {
+    return IconButton(
+      onPressed: () {
+        setState(() {
+          Provider.of<BookingInfo>(context, listen: false).addService(aService);
+        });
+      },
+      icon: Icon(Icons.add, color: Colors.black87),
+    );
+  }
+
+  Widget _decrementButton(FLService aService) {
+    return IconButton(
+      onPressed: () {
+        setState(() {
+          Provider.of<BookingInfo>(context, listen: false)
+              .deleteService(aService);
+        });
+      },
+      icon: Icon(Icons.remove, color: Colors.black87),
     );
   }
 }

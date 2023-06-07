@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fl_booking_app/models/models.dart';
-import 'package:http/http.dart' as http;
 
 import 'package:fl_booking_app/providers/providers.dart';
-import 'package:fl_booking_app/data/data.dart';
 import 'package:fl_booking_app/screens/booking/services_tab/services_add/components/service_add_container.dart';
 import 'package:fl_booking_app/screens/booking/services_tab/services_add/components/services_sort.dart';
 
@@ -65,17 +63,10 @@ class _ExpansionTileServicesState extends State<ExpansionTileServices> {
                         shrinkWrap: true,
                         itemCount: servicesList.serviceMapByLOB[lineListkey].servicesMapWithParam.length,
                         itemBuilder: (BuildContext context, int index) {
-                          print(servicesList.serviceMapByLOB[lineListkey].servicesMapWithParam.length);
-                          print(index);
                           int mapKey = servicesList.serviceMapByLOB[lineListkey]
                               .servicesMapWithParam
                               .keys
                               .elementAt(index);
-                          // List<FLService> aServices =
-                          //     servicesList.serviceMapByLOB[lineListkey].servicesMapWithParam[mapKey];
-                          // for (var el in aServices) {
-                          //   print(mapKey);
-                          // }
                           return Text(mapKey.toString());
                         },
                       ),

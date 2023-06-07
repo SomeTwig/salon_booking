@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:fl_booking_app/screens/booking/services_tab/services_tab.dart';
 import 'package:fl_booking_app/screens/booking/time_tab/time_tab.dart';
 import 'package:fl_booking_app/screens/booking/appointment_tab/appointment_tab.dart';
-import 'package:fl_booking_app/models/models.dart';
 
 //Main body of the page
 class BookingPage extends StatefulWidget {

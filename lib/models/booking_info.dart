@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fl_booking_app/models/flService.dart';
-import 'package:fl_booking_app/providers/services_provider.dart';
 
 class BookingInfo extends ChangeNotifier {
   String _date = '';
@@ -34,31 +33,38 @@ class BookingInfo extends ChangeNotifier {
 
   void addServices(List<FLService> aServices) {
     for (var service in aServices) {
-      if (_services.indexWhere(
-              (element) => element.serviceId == service.serviceId) ==
-          -1) {
+      if (_services.indexWhere((element) => element.key == service.key) == -1) {
         _services.add(service);
+      } else {
+        _services
+            .firstWhere((element) => element.key == service.key)
+            .quantity += service.quantity;
       }
     }
     notifyListeners();
   }
 
   void addService(FLService aService) {
-    // for (var element in _services) {
-    //   if (element.serviceId == aService.serviceId) {
-    //     print(element.serviceName);
-    //     return;
-    //   }
-    // }
-    // if (_services.contains(aService) == false) {
+    for (var element in _services) {
+      if (element.key == aService.key) {
+        element.quantity++;
+        return;
+      }
+    }
+    aService.quantity++;
     _services.add(aService);
     notifyListeners();
-    // }
   }
 
   void deleteService(FLService aService) {
     if (_services.contains(aService) == true) {
-      _services.remove(aService);
+      int qty = _services
+          .firstWhere((element) => element.key == aService.key)
+          .quantity--;
+      qty--;
+      if (qty == 0) {
+        _services.remove(aService);
+      }
       notifyListeners();
     }
   }

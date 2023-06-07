@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'routes/route.dart' as route;
-import 'package:fl_booking_app/screens/home/home.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:fl_booking_app/models/models.dart';
 import 'package:fl_booking_app/providers/services_provider.dart';

@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:fl_booking_app/models/models.dart';
 
 class ServicesByParameters {

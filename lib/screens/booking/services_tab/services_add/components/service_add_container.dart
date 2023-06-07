@@ -3,10 +3,7 @@ import 'package:fl_booking_app/constants/constants.dart';
 import 'package:fl_booking_app/models/models.dart';
 
 import 'package:provider/provider.dart';
-import 'package:fl_booking_app/data/data.dart';
 import 'package:fl_booking_app/providers/services_provider.dart';
-
-import '../../../../../routes/route.dart' as route;
 
 class ServiceAddContainer extends StatefulWidget {
   final FLService service;
@@ -20,24 +17,17 @@ class ServiceAddContainer extends StatefulWidget {
 class _ServiceAddContainerState extends State<ServiceAddContainer> {
   bool isShow = false;
 
-  bool _isAddButtonDisabled = false;
   bool _isDeleteButtonDisabled = true;
 
-  void _handleAddButtonTap() {
-    setState(() {
-      _isAddButtonDisabled = true;
-      _isDeleteButtonDisabled = false;
-    });
-    Provider.of<ServiceList>(context, listen: false).addService(widget.service);
-  }
 
   void _handleDeleteButtonTap() {
-    setState(() {
-      _isAddButtonDisabled = false;
-      _isDeleteButtonDisabled = true;
-    });
     Provider.of<ServiceList>(context, listen: false)
         .deleteService(widget.service);
+    if (widget.service.quantity == 0) {
+      setState(() {
+        _isDeleteButtonDisabled = true;
+      });
+    }
   }
 
   @override
@@ -72,26 +62,27 @@ class _ServiceAddContainerState extends State<ServiceAddContainer> {
                           ),
                         ),
                         const Spacer(),
-                        IconButton(
-                          icon: const Icon(Icons.add),
-                          tooltip: 'Выбрать услугу',
-                          onPressed:
-                              _isAddButtonDisabled ? null : _handleAddButtonTap,
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        VerticalDivider(),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.delete),
-                          tooltip: 'Удалить услугу',
-                          onPressed: _isDeleteButtonDisabled
-                              ? null
-                              : _handleDeleteButtonTap,
-                        ),
+                        // IconButton(
+                        //   icon: const Icon(Icons.add),
+                        //   tooltip: 'Выбрать услугу',
+                        //   onPressed:
+                        //       _isAddButtonDisabled ? null : _handleAddButtonTap,
+                        // ),
+                        // const SizedBox(
+                        //   width: 5,
+                        // ),
+                        // VerticalDivider(),
+                        // const SizedBox(
+                        //   width: 5,
+                        // ),
+                        // IconButton(
+                        //   icon: const Icon(Icons.delete),
+                        //   tooltip: 'Удалить услугу',
+                        //   onPressed: _isDeleteButtonDisabled
+                        //       ? null
+                        //       : _handleDeleteButtonTap,
+                        // ),
+                        _quantityControl(),
                       ]),
                 ),
                 Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
@@ -109,6 +100,49 @@ class _ServiceAddContainerState extends State<ServiceAddContainer> {
           )
         ],
       ),
+    );
+  }
+
+  Widget _quantityControl() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          _decrementButton(),
+          const SizedBox(
+            width: 15,
+          ),
+          Text(
+            '${widget.service.quantity}',
+            style: TextStyle(fontSize: 18.0),
+          ),
+          const SizedBox(
+            width: 15,
+          ),
+          _incrementButton(),
+        ],
+      ),
+    );
+  }
+
+  Widget _incrementButton() {
+    return IconButton(
+      onPressed: () {
+        setState(() {
+          _isDeleteButtonDisabled = false;
+          Provider.of<ServiceList>(context, listen: false)
+              .addService(widget.service);
+        });
+      },
+      icon: Icon(Icons.add, color: Colors.black87),
+    );
+  }
+
+  Widget _decrementButton() {
+    return IconButton(
+      onPressed: _isDeleteButtonDisabled ? null : _handleDeleteButtonTap,
+      icon: Icon(Icons.remove, color: Colors.black87),
     );
   }
 }
