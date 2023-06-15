@@ -36,6 +36,9 @@ class ServiceList with ChangeNotifier {
   void addService(FLService aService) {
     for (var element in _services) {
       if (element.key == aService.key) {
+        // print(aService.serviceParamId);
+        // print(aService.key);
+
         element.quantity++;
         return;
       }
@@ -47,14 +50,17 @@ class ServiceList with ChangeNotifier {
 
   void deleteService(FLService aService) {
     if (_services.contains(aService) == true) {
+      // print(aService.serviceParamId);
       int qty = _services
           .firstWhere((element) => element.key == aService.key)
           .quantity--;
-      if (qty == 0) {
+      qty--;
+      //print(qty);
+      if (qty <= 0) {
         _services.remove(aService);
       }
-      notifyListeners();
     }
+    notifyListeners();
   }
 
   void deleteAllServices() {

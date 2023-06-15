@@ -5,7 +5,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:fl_booking_app/constants/constants.dart';
-import 'package:fl_booking_app/models/flService.dart';
+import 'package:fl_booking_app/models/models.dart';
 
 class BookingService {
   //base URL path to Booking API-services
@@ -28,14 +28,39 @@ class BookingService {
     return compute(parseServices, responseBody);
   }
 
-  Future<List<FLService>> fetchOfficeDates() async {
+  Future<List<FLOffice>> fetchOffices() async {
     const String url =
         '$serviceURL/GetOffices?networkId=$myNetworkId&languageid=$myLanguageId';
 
     String responseBody = await _callAPI(url, 'get');
 
     // Use the compute function to run parseServices in a separate isolate.
-    return compute(parseServices, responseBody);
+    return compute(parseOffices, responseBody);
+  }
+
+  Future<List<OfficeDate>> fetchOfficesDates() async {
+    const String url =
+        '$serviceURL/GetOfficeWorkingDatesList?networkId=$myNetworkId';
+
+    String responseBody = await _callAPI(url, 'get');
+
+    // Use the compute function to run parseServices in a separate isolate.
+    return compute(parseOfficesDates, responseBody);
+  }
+
+  Future<List<BookingVariant>> getBookingTimeVariants(
+      int officeId, String selectedDate, String jsonBody) async {
+    String url =
+        '$serviceURL/GetBookingTimeVariants?networkId=$myNetworkId&languageid=$myLanguageId&officeid=$officeId&bookingdate=$selectedDate';
+    //'$serviceURL/GetBookingTimeVariants?networkId=$myNetworkId&languageid=$myLanguageId&officeid=$officeId&bookingdate=$selectedDate';
+    String responseBody = await _callAPI(url, 'post', jsonBody);
+    // print(officeId);
+    // print(selectedDate);
+    // print("jsonBody");
+    // print(jsonBody);
+    // print(responseBody);
+    // Use the compute function to run parseServices in a separate isolate.
+    return compute(parseBookingTimeVariants, responseBody);
   }
 
   // A common function to call web-api method, returns response body if success
@@ -70,9 +95,32 @@ class BookingService {
   }
 }
 
-// A function that converts a response body into a List<Service>.
+// A function that converts a response body into a List<FLService>.
 List<FLService> parseServices(String responseBody) {
   final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
 
   return parsed.map<FLService>((json) => FLService.fromJson(json)).toList();
+}
+
+// A function that converts a response body into a List<FLOffice>.
+List<FLOffice> parseOffices(String responseBody) {
+  final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
+
+  return parsed.map<FLOffice>((json) => FLOffice.fromJson(json)).toList();
+}
+
+// A function that converts a response body into a List<OfficeDate>.
+List<OfficeDate> parseOfficesDates(String responseBody) {
+  final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
+
+  return parsed.map<OfficeDate>((json) => OfficeDate.fromJson(json)).toList();
+}
+
+// A function that converts a response body into a List<OfficeDate>.
+List<BookingVariant> parseBookingTimeVariants(String responseBody) {
+  final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
+
+  return parsed
+      .map<BookingVariant>((json) => BookingVariant.fromJson(json))
+      .toList();
 }

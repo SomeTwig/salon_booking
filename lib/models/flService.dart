@@ -3,7 +3,7 @@ import 'package:string_validator/string_validator.dart';
 
 class FLService {
   int serviceId;
-  int serviceParamId = -1;
+  int? serviceParamId = -1;
   String serviceName;
   String serviceParam = '';
   int lineOfBusinessId;
@@ -17,11 +17,12 @@ class FLService {
   int quantity = 0;
 
   String get key {
-    return ('$serviceId|${serviceParamId > 0 ? serviceParamId : '-1'}');
+    return ('$serviceId|${serviceParamId ?? '-1'}');
   }
 
   FLService(
       {required this.serviceId,
+      required this.serviceParamId,
       required this.serviceName,
       required this.lineOfBusinessId,
       required this.lineOfBusiness,
@@ -31,14 +32,22 @@ class FLService {
       required this.discountedPercent,
       required this.duration});
 
+  Map toJson() => {
+        'serviceId': serviceId,
+        'serviceParamId': serviceParamId,
+        'duration': duration,
+        'quantity': quantity,
+      };
+
   factory FLService.fromJson(Map<String, dynamic> json) {
     int aDuration = 0;
     if (json['Duration'] != null) {
       aDuration = int.parse(json['Duration'].toString());
     }
-    print(json['HasParam']);
+    //print(json['HasParam']);
     return FLService(
       serviceId: int.parse(json['ServiceId'].toString()),
+      serviceParamId: int.tryParse(json['ServiceParamId'].toString()),
       serviceName: json['ServiceName'] as String,
       lineOfBusinessId: int.parse(json['LineOfBusinessId'].toString()),
       lineOfBusiness: json['LineOfBusiness'] as String,
@@ -51,19 +60,3 @@ class FLService {
     );
   }
 }
-
-/* Future<List<Service>> fetchServices(http.Client client) async {
-  final response = await client.get(Uri.parse(
-      'https://fltest.x-tend.com.ua/api/GetBookingPrice?networkId=1&language=2&discountcode=JENPCZ4FSC'));
-
-  // Use the compute function to run parsePhotos in a separate isolate.
-  return compute(parseServices, response.body);
-}
-
-// A function that converts a response body into a List<Photo>.
-List<Service> parseServices(String responseBody) {
-  final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
-
-  return parsed.map<Service>((json) => Service.fromJson(json)).toList();
-}
- */

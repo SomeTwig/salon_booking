@@ -1,7 +1,7 @@
+import 'package:fl_booking_app/models/flOffice.dart';
 import 'package:flutter/material.dart';
-import 'package:fl_booking_app/data/data.dart';
 import 'package:fl_booking_app/screens/salons/components/salon_container.dart';
-
+import 'package:fl_booking_app/providers/providers.dart';
 
 class SalonsPage extends StatefulWidget {
   const SalonsPage({super.key});
@@ -11,6 +11,13 @@ class SalonsPage extends StatefulWidget {
 }
 
 class _SalonsPageState extends State<SalonsPage> {
+  late Future<List<FLOffice>> futureServiceList;
+  @override
+  void initState() {
+    super.initState();
+    futureServiceList = OfficeList().fetchAllOffices();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,16 +54,31 @@ class _SalonsPageState extends State<SalonsPage> {
                           fontWeight: FontWeight.w900,
                         ),
                       ),
-                      ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: flSalon.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return SalonContainer(
-                            flSalon: flSalon[index],
-                          );
-                        },
-                      ),
+                      FutureBuilder<List<FLOffice>>(
+                          future: futureServiceList,
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              List<FLOffice> officesList = snapshot.data!;
+                              for (var element in officesList) {
+                                print(element.officeName);
+                              }
+                              return ListView.builder(
+                                physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: officesList.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return SalonContainer(
+                                    flSalon: officesList[index],
+                                  );
+                                },
+                              );
+                            } else if (snapshot.hasError) {
+                              return Text('${snapshot.error}');
+                            }
+
+                            // By default, show a loading spinner.
+                            return const CircularProgressIndicator();
+                          })
                     ],
                   ),
                 ),

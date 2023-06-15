@@ -48,7 +48,7 @@ class _AppointmentTabState extends State<AppointmentTab>
                 },
                 style: ElevatedButton.styleFrom(
                     textStyle:
-                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     minimumSize: Size(100, 50)),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
@@ -93,7 +93,7 @@ class _AppointmentTabState extends State<AppointmentTab>
                 },
                 style: ElevatedButton.styleFrom(
                     textStyle:
-                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     minimumSize: Size(100, 50)),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,

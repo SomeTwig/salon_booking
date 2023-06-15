@@ -1,32 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:fl_booking_app/models/models.dart';
 
-final List<FLSalon> flSalon = [
-  FLSalon(
-    'ЖК Нова Англія',
-    'Вул. Максимовича 26-б, оф 447',
-    'assets/images/1.png',
-    const Color(0xFFFFF0EB),
-  ),
-  FLSalon(
-    'ЖК Малахіт',
-    'м. Київ, вул. Богданівська, 7Г',
-    'assets/images/2.png',
-    const Color(0xFFEBF6FF),
-  ),
-  FLSalon(
-    'Варшава Fast Line Studio',
-    'Варшава, Яна Казімежа, 27А',
-    'assets/images/3.png',
-    const Color(0xFFFFF3EB),
-  ),
-  FLSalon(
-    'Кракiв, Заблоччя',
-    'Краків, вул. Заблоччя, 19-А',
-    'assets/images/4.png',
-    const Color(0xFFEBFFED),
-  )
-];
+// final List<FLOffice> flSalon = [
+//   FLOffice(
+//     'ЖК Нова Англія',
+//     'Вул. Максимовича 26-б, оф 447',
+//     'assets/images/1.png',
+//     const Color(0xFFFFF0EB),
+//   ),
+//   FLOffice(
+//     'ЖК Малахіт',
+//     'м. Київ, вул. Богданівська, 7Г',
+//     'assets/images/2.png',
+//     const Color(0xFFEBF6FF),
+//   ),
+//   FLOffice(
+//     'Варшава Fast Line Studio',
+//     'Варшава, Яна Казімежа, 27А',
+//     'assets/images/3.png',
+//     const Color(0xFFFFF3EB),
+//   ),
+//   FLOffice(
+//     'Кракiв, Заблоччя',
+//     'Краків, вул. Заблоччя, 19-А',
+//     'assets/images/4.png',
+//     const Color(0xFFEBFFED),
+//   )
+// ];
 
 // final List<FlService> servicesList = [
 //   FlService(

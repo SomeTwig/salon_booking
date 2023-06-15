@@ -34,7 +34,8 @@ class _ExpansionTileServicesState extends State<ExpansionTileServices> {
                 shrinkWrap: true,
                 itemCount: servicesList.serviceMapByLOB.length,
                 itemBuilder: (BuildContext context, int index) {
-                  String lineListkey = servicesList.serviceMapByLOB.keys.elementAt(index);
+                  String lineListkey =
+                      servicesList.serviceMapByLOB.keys.elementAt(index);
                   return ExpansionTile(
                     maintainState: true,
                     title: Text(
@@ -47,10 +48,12 @@ class _ExpansionTileServicesState extends State<ExpansionTileServices> {
                       ListView.builder(
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
-                        itemCount: servicesList.serviceMapByLOB[lineListkey].servicesWithNoParam.length,
+                        itemCount: servicesList.serviceMapByLOB[lineListkey]
+                            .servicesWithNoParam.length,
                         itemBuilder: (BuildContext context, int index) {
-                          FLService aService =
-                              servicesList.serviceMapByLOB[lineListkey].servicesWithNoParam[index];
+                          FLService aService = servicesList
+                              .serviceMapByLOB[lineListkey]
+                              .servicesWithNoParam[index];
                           return ServiceAddContainer(
                             service: aService,
                           );
@@ -61,13 +64,17 @@ class _ExpansionTileServicesState extends State<ExpansionTileServices> {
                       ListView.builder(
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
-                        itemCount: servicesList.serviceMapByLOB[lineListkey].servicesMapWithParam.length,
+                        itemCount: servicesList.serviceMapByLOB[lineListkey]
+                            .servicesMapWithParam.length,
                         itemBuilder: (BuildContext context, int index) {
                           int mapKey = servicesList.serviceMapByLOB[lineListkey]
-                              .servicesMapWithParam
-                              .keys
+                              .servicesMapWithParam.keys
                               .elementAt(index);
-                          return Text(mapKey.toString());
+
+                          return ExpansionServicesWithParam(
+                              servicesList: servicesList
+                                  .serviceMapByLOB[lineListkey]
+                                  .servicesMapWithParam[mapKey]);
                         },
                       ),
                     ],
@@ -83,6 +90,43 @@ class _ExpansionTileServicesState extends State<ExpansionTileServices> {
           return const CircularProgressIndicator();
         },
       ),
+    );
+  }
+}
+
+class ExpansionServicesWithParam extends StatefulWidget {
+  final List<FLService> servicesList;
+
+  const ExpansionServicesWithParam({super.key, required this.servicesList});
+  @override
+  State<ExpansionServicesWithParam> createState() =>
+      _ExpansionServicesWithParamState();
+}
+
+class _ExpansionServicesWithParamState
+    extends State<ExpansionServicesWithParam> {
+  @override
+  Widget build(BuildContext context) {
+    return ExpansionTile(
+      maintainState: true,
+      title: Text(
+        widget.servicesList.first.serviceName,
+        style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500),
+      ),
+      children: <Widget>[
+        //ListView Builder for services HasParameter = false
+        ListView.builder(
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: widget.servicesList.length,
+          itemBuilder: (BuildContext context, int index) {
+            FLService aService = widget.servicesList[index];
+            return ServiceAddContainer(
+              service: aService,
+            );
+          },
+        ),
+      ],
     );
   }
 }

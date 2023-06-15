@@ -19,17 +19,6 @@ class _ServiceAddContainerState extends State<ServiceAddContainer> {
 
   bool _isDeleteButtonDisabled = true;
 
-
-  void _handleDeleteButtonTap() {
-    Provider.of<ServiceList>(context, listen: false)
-        .deleteService(widget.service);
-    if (widget.service.quantity == 0) {
-      setState(() {
-        _isDeleteButtonDisabled = true;
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -62,26 +51,6 @@ class _ServiceAddContainerState extends State<ServiceAddContainer> {
                           ),
                         ),
                         const Spacer(),
-                        // IconButton(
-                        //   icon: const Icon(Icons.add),
-                        //   tooltip: 'Выбрать услугу',
-                        //   onPressed:
-                        //       _isAddButtonDisabled ? null : _handleAddButtonTap,
-                        // ),
-                        // const SizedBox(
-                        //   width: 5,
-                        // ),
-                        // VerticalDivider(),
-                        // const SizedBox(
-                        //   width: 5,
-                        // ),
-                        // IconButton(
-                        //   icon: const Icon(Icons.delete),
-                        //   tooltip: 'Удалить услугу',
-                        //   onPressed: _isDeleteButtonDisabled
-                        //       ? null
-                        //       : _handleDeleteButtonTap,
-                        // ),
                         _quantityControl(),
                       ]),
                 ),
@@ -144,5 +113,17 @@ class _ServiceAddContainerState extends State<ServiceAddContainer> {
       onPressed: _isDeleteButtonDisabled ? null : _handleDeleteButtonTap,
       icon: Icon(Icons.remove, color: Colors.black87),
     );
+  }
+
+  void _handleDeleteButtonTap() {
+    setState(() {
+      Provider.of<ServiceList>(context, listen: false)
+          .deleteService(widget.service);
+    });
+    if (widget.service.quantity == 0) {
+      setState(() {
+        _isDeleteButtonDisabled = true;
+      });
+    }
   }
 }

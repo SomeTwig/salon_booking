@@ -87,14 +87,15 @@ class _ServicesTabState extends State<ServicesTab>
                     children: [
                       Row(
                         children: [
-                          Text(
-                            'Выбраный салон: \n${Provider.of<BookingInfo>(context, listen: false).sName}',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w300,
+                          Expanded(
+                            child: Text(
+                              'Выбраный салон: \n${Provider.of<BookingInfo>(context, listen: false).sName}',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w300,
+                              ),
                             ),
                           ),
-                          Spacer(),
                           ElevatedButton(
                             onPressed: () {
                               Navigator.push(
@@ -157,6 +158,10 @@ class ServicesChosen extends StatefulWidget {
 
 class _ServicesChosenState extends State<ServicesChosen>
     with SingleTickerProviderStateMixin {
+  bool _isDeleteButtonDisabled = false;
+
+  
+
   @override
   Widget build(BuildContext context) {
     return Consumer<BookingInfo>(
@@ -186,23 +191,6 @@ class _ServicesChosenState extends State<ServicesChosen>
                                       child: Text(
                                           booking.services[index].serviceName)),
                                   const Spacer(),
-                                  // MaterialButton(
-                                  //   color: myPrimaryColor,
-                                  //   shape: RoundedRectangleBorder(
-                                  //       borderRadius: BorderRadius.circular(20)),
-                                  //   onPressed: () {
-                                  //     Provider.of<BookingInfo>(context,
-                                  //             listen: false)
-                                  //         .deleteService(booking.services[index]);
-                                  //   },
-                                  //   child: const Text(
-                                  //     'Удалить',
-                                  //     style: TextStyle(
-                                  //         color: Colors.white,
-                                  //         fontSize: 16,
-                                  //         fontWeight: FontWeight.w600),
-                                  //   ),
-                                  // ),
                                   _quantityControl(booking.services[index]),
                                 ]))
                       ]));
@@ -243,6 +231,7 @@ class _ServicesChosenState extends State<ServicesChosen>
   Widget _incrementButton(FLService aService) {
     return IconButton(
       onPressed: () {
+        _isDeleteButtonDisabled = false;
         setState(() {
           Provider.of<BookingInfo>(context, listen: false).addService(aService);
         });
@@ -254,12 +243,24 @@ class _ServicesChosenState extends State<ServicesChosen>
   Widget _decrementButton(FLService aService) {
     return IconButton(
       onPressed: () {
-        setState(() {
-          Provider.of<BookingInfo>(context, listen: false)
-              .deleteService(aService);
-        });
+        if (_isDeleteButtonDisabled == true) {
+          null;
+        } else {
+          _handleDeleteButtonTap(aService);
+        }
       },
       icon: Icon(Icons.remove, color: Colors.black87),
     );
+  }
+
+  void _handleDeleteButtonTap(FLService aService) {
+    setState(() {Provider.of<BookingInfo>(context, listen: false).deleteService(aService);});
+    // print('servq');
+    // print(aService.quantity);
+    if (aService.quantity == 0) {
+      setState(() {
+        _isDeleteButtonDisabled = true;
+      });
+    }
   }
 }

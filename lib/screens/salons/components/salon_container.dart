@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:fl_booking_app/constants/constants.dart';
 import 'package:fl_booking_app/models/models.dart';
+import 'package:fl_booking_app/providers/providers.dart';
 
 import 'package:provider/provider.dart';
 
 import '../../../routes/route.dart' as route;
 
 class SalonContainer extends StatefulWidget {
-  final FLSalon flSalon;
+  final FLOffice flSalon;
 
   const SalonContainer({super.key, required this.flSalon});
 
@@ -22,10 +23,9 @@ class _SalonContainerState extends State<SalonContainer> {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 15),
       width: size.width,
-      height: size.height / 5 + 20,
+      height: size.height / 4,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color: widget.flSalon.color,
       ),
       child: Stack(
         children: [
@@ -35,7 +35,7 @@ class _SalonContainerState extends State<SalonContainer> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  widget.flSalon.salonName,
+                  widget.flSalon.officeName,
                   style: const TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 20,
@@ -45,7 +45,7 @@ class _SalonContainerState extends State<SalonContainer> {
                   height: 5,
                 ),
                 Text(
-                  widget.flSalon.locationAddress,
+                  widget.flSalon.officeAddress,
                   style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w300,
@@ -72,7 +72,9 @@ class _SalonContainerState extends State<SalonContainer> {
                       borderRadius: BorderRadius.circular(20)),
                   onPressed: () {
                     Provider.of<BookingInfo>(context, listen: false)
-                        .addSalonName(widget.flSalon.salonName);
+                        .addSalon(widget.flSalon.officeName, widget.flSalon.officeId);
+                    Provider.of<OfficeList>(context, listen: false)
+                        .addOffice(widget.flSalon);
                     Navigator.pushNamed(context, route.bookingPage);
                   },
                   child: const Text(
