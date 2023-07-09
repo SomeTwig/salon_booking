@@ -9,9 +9,14 @@ class ServiceList with ChangeNotifier {
 
   //List<Service> _allServices = [];
   List<FLService> _services = [];
+
+  double _serviceSum = 0;
+
   ServiceStatus get status => _status;
 
   List<FLService> get services => _services;
+
+  double get serviceSum => _serviceSum;
 
   Future<List<FLService>> fetchAllServices() async {
     _status = ServiceStatus.loading;
@@ -34,6 +39,7 @@ class ServiceList with ChangeNotifier {
   }
 
   void addService(FLService aService) {
+    addSum(aService.price);
     for (var element in _services) {
       if (element.key == aService.key) {
         // print(aService.serviceParamId);
@@ -50,6 +56,7 @@ class ServiceList with ChangeNotifier {
 
   void deleteService(FLService aService) {
     if (_services.contains(aService) == true) {
+      subtractSum(aService.price);
       // print(aService.serviceParamId);
       int qty = _services
           .firstWhere((element) => element.key == aService.key)
@@ -65,5 +72,16 @@ class ServiceList with ChangeNotifier {
 
   void deleteAllServices() {
     _services.clear();
+    _serviceSum = 0;
+  }
+
+  void addSum(double aServicePrice) {
+    _serviceSum += aServicePrice;
+    notifyListeners();
+  }
+
+  void subtractSum(double aServicePrice) {
+    _serviceSum -= aServicePrice;
+    notifyListeners();
   }
 }

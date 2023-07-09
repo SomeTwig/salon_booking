@@ -16,8 +16,8 @@ class BookingService {
 
   Future<List<FLService>> fetchServices() async {
     const String url =
-        'https://fltest.x-tend.com.ua/api/GetBookingPrice?networkId=1&language=2&discountcode=JENPCZ4FSC';
-    // '$serviceURL/GetServicesPriceList?networkId=$myNetworkId&languageid=$myLanguageId&discountcode=$myOnlineBooking_DiscountCode&contactsourceid$myOnlineBooking_CountactSourceId';
+         //'https://fltest.x-tend.com.ua/api/GetBookingPrice?networkId=1&language=2&discountcode=JENPCZ4FSC';
+        '$serviceURL/GetServicesPriceList?networkId=$myNetworkId&languageid=$myLanguageId&discountcode=$myOnlineBookingDiscountCode';
 
     String responseBody = await _callAPI(url, 'get');
 
@@ -80,7 +80,7 @@ class BookingService {
       if (response.statusCode == 200 || response.statusCode == 201) {
         return response.body;
       } else {
-        print(response.toString());
+        // print(response.toString());
         // If the server did not return a 200-OK or 201-CREATED response,
         // then throw an exception.
         throw Exception('Failed to call Web-API method.');
@@ -98,7 +98,7 @@ class BookingService {
 // A function that converts a response body into a List<FLService>.
 List<FLService> parseServices(String responseBody) {
   final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
-
+  
   return parsed.map<FLService>((json) => FLService.fromJson(json)).toList();
 }
 

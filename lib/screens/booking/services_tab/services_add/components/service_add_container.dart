@@ -21,18 +21,19 @@ class _ServiceAddContainerState extends State<ServiceAddContainer> {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
+    //print(widget.service.serviceParamId);
+    //final Size size = MediaQuery.of(context).size;
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 15),
-      width: size.width,
-      height: size.height / 5 + 20,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
+        border: Border(
+          top: BorderSide(
+              color: Colors.blueGrey, width: 1.0, style: BorderStyle.solid),
+        ),
       ),
       child: Stack(
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: 2, left: 30),
+            padding: const EdgeInsets.only(top: 20, bottom: 20, left: 30),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -55,14 +56,28 @@ class _ServiceAddContainerState extends State<ServiceAddContainer> {
                       ]),
                 ),
                 Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                  Text(
-                    widget.service.price.toString(),
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: mySecondryTextColor,
-                    ),
-                  ),
+                  // Text(
+                  //   widget.service.price.toString(),
+                  //   style: const TextStyle(
+                  //     fontSize: 14,
+                  //     fontWeight: FontWeight.w400,
+                  //     color: mySecondryTextColor,
+                  //   ),
+                  // ),
+                  _showServicePrice(),
+                  Spacer(),
+                  if (widget.service.hasParam == true)
+                    Padding(
+                      padding: const EdgeInsets.only(right: 30),
+                      child: Text(
+                        widget.service.serviceParam,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: mySecondryTextColor,
+                        ),
+                      ),
+                    )
                 ]),
               ],
             ),
@@ -74,20 +89,14 @@ class _ServiceAddContainerState extends State<ServiceAddContainer> {
 
   Widget _quantityControl() {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(6.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
           _decrementButton(),
-          const SizedBox(
-            width: 15,
-          ),
           Text(
             '${widget.service.quantity}',
-            style: TextStyle(fontSize: 18.0),
-          ),
-          const SizedBox(
-            width: 15,
+            style: TextStyle(fontSize: 16.0),
           ),
           _incrementButton(),
         ],
@@ -95,8 +104,57 @@ class _ServiceAddContainerState extends State<ServiceAddContainer> {
     );
   }
 
+  Widget _showServicePrice() {
+    if (widget.service.discountedPrice< widget.service.price) {
+      return Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+        Text(
+          widget.service.price.toString(),
+          style: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w400,
+            color: mySecondryTextColor,
+            decoration: TextDecoration.lineThrough,
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.only(left: 10),
+          child: Text(
+            widget.service.discountedPrice.toString(),
+            style: const TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              color: mySecondryTextColor,
+            ),
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.only(left: 15),
+          child: Text(
+            '-${widget.service.discountedPercent.toString()}%',
+            style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Colors.red,
+            ),
+          ),
+        )
+      ]);
+    } else {
+      return Text(
+        widget.service.price.toString(),
+        style: const TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w400,
+          color: mySecondryTextColor,
+        ),
+      );
+    }
+  }
+
   Widget _incrementButton() {
     return IconButton(
+      icon: Icon(Icons.add, color: Colors.black87),
+      iconSize: 15,
       onPressed: () {
         setState(() {
           _isDeleteButtonDisabled = false;
@@ -104,14 +162,14 @@ class _ServiceAddContainerState extends State<ServiceAddContainer> {
               .addService(widget.service);
         });
       },
-      icon: Icon(Icons.add, color: Colors.black87),
     );
   }
 
   Widget _decrementButton() {
     return IconButton(
-      onPressed: _isDeleteButtonDisabled ? null : _handleDeleteButtonTap,
       icon: Icon(Icons.remove, color: Colors.black87),
+      iconSize: 15,
+      onPressed: _isDeleteButtonDisabled ? null : _handleDeleteButtonTap,
     );
   }
 

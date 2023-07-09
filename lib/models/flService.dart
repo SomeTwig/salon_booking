@@ -10,8 +10,8 @@ class FLService {
   String lineOfBusiness;
   bool hasParam;
   double price;
-  double discountedPrice = 0;
-  int discountedPercent = 0;
+  double discountedPrice;
+  int? discountedPercent;
   int duration;
 
   int quantity = 0;
@@ -24,6 +24,7 @@ class FLService {
       {required this.serviceId,
       required this.serviceParamId,
       required this.serviceName,
+      required this.serviceParam,
       required this.lineOfBusinessId,
       required this.lineOfBusiness,
       required this.hasParam,
@@ -41,21 +42,22 @@ class FLService {
 
   factory FLService.fromJson(Map<String, dynamic> json) {
     int aDuration = 0;
-    if (json['Duration'] != null) {
-      aDuration = int.parse(json['Duration'].toString());
+    if (json['duration'] != null) {
+      aDuration = int.parse(json['duration'].toString());
     }
-    //print(json['HasParam']);
+    //print(json['discountedPrice']);
     return FLService(
-      serviceId: int.parse(json['ServiceId'].toString()),
-      serviceParamId: int.tryParse(json['ServiceParamId'].toString()),
-      serviceName: json['ServiceName'] as String,
-      lineOfBusinessId: int.parse(json['LineOfBusinessId'].toString()),
-      lineOfBusiness: json['LineOfBusiness'] as String,
-      hasParam: toBoolean(json['HasParam'].toString()),
-      price: double.parse(json['Price'].toString()),
-      discountedPrice: double.parse(json['DiscountedPrice'].toString()),
+      serviceId: int.parse(json['serviceId'].toString()),
+      serviceParamId: int.tryParse(json['serviceParamId'].toString()),
+      serviceParam: json['serviceParam'].toString(),
+      serviceName: json['serviceName'] as String,
+      lineOfBusinessId: int.parse(json['lineOfBusinessId'].toString()),
+      lineOfBusiness: json['lineOfBusiness'] as String,
+      hasParam: toBoolean(json['hasParam'].toString()),
+      price: double.parse(json['price'].toString()),
+      discountedPrice: double.parse(json['discountedPrice'].toString()),
       discountedPercent:
-          double.parse(json['DiscountPercent'].toString()).toInt(),
+          double.tryParse(json['discountPercent'].toString())?.toInt(),
       duration: aDuration,
     );
   }

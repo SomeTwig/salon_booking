@@ -60,7 +60,6 @@ class _ExpansionTileServicesState extends State<ExpansionTileServices> {
                         },
                       ),
                       //ListView Builder for services with HasParameter = true
-                      // UNFINISHED - TEST
                       ListView.builder(
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
@@ -114,7 +113,7 @@ class _ExpansionServicesWithParamState
         style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500),
       ),
       children: <Widget>[
-        //ListView Builder for services HasParameter = false
+        //ListView Builder for each of services' parameter
         ListView.builder(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,

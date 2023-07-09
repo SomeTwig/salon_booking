@@ -108,37 +108,35 @@ class _BookingTabsState extends State<BookingTabs>
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          bottom: TabBar(
-            controller: _tabController,
-            tabs: myTabs,
+          bottom: ReadOnlyTabBar(
+            child: TabBar(
+              controller: _tabController,
+              tabs: myTabs,
+            ),
           ),
           title: Text('Бронирование'),
         ),
         body: TabBarView(
-          // physics: const NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           controller: _tabController,
           children: bookingTabsBody,
         ),
-        // floatingActionButton: ElevatedButton.icon(
-        //   onPressed: isNext
-        //       ? () => _tabController.animateTo(_selectedIndex += 1)
-        //       : null,
-        //   icon: Icon(Icons.arrow_forward),
-        //   label: Text('Далее'),
-        // ),
-        // persistentFooterButtons: [
-        //   Visibility(
-        //     visible: isNext,
-        //     child: ElevatedButton.icon(
-        //       onPressed: isNext
-        //           ? () => _tabController.animateTo(_selectedIndex += 1)
-        //           : null,
-        //       icon: Icon(Icons.arrow_forward),
-        //       label: Text('Далее'),
-        //     ),
-        //   ),
-        // ],
       ),
     );
   }
+}
+
+// https://stackoverflow.com/a/57354375/436422
+class ReadOnlyTabBar extends StatelessWidget implements PreferredSizeWidget {
+  final TabBar child;
+
+  const ReadOnlyTabBar({Key? key, required this.child}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return IgnorePointer(child: child);
+  }
+
+  @override
+  Size get preferredSize => child.preferredSize;
 }
