@@ -42,13 +42,6 @@ class _TimeTabExampleState extends State<TimeTab>
     addFutBookVar();
     _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
 
-    // print(futureBookingVariants);
-    // print(_selectedEvents.value);
-    // if (_selectedEvents.value.isEmpty == false) {
-    //   Provider.of<BookingInfo>(context, listen: false).addDateTime(
-    //       DateFormat("yyyy-MM-dd").format(_selectedDay!),
-    //       _selectedEvents.value[_selectedIndex]);
-    // }
   }
 
   @override
@@ -70,18 +63,11 @@ class _TimeTabExampleState extends State<TimeTab>
   }
 
   List<BookingVariant> _getEventsForDay(DateTime day) {
-    // print(day);
-    // print(futureBookingVariants);
     if (futureBookingVariants.isNotEmpty) {
       print('notempty');
       return futureBookingVariants;
     }
     return [];
-    // for (final item in datetimes) {
-    //   if (item.date == cdate) {
-    //     return item.times;
-    //   }
-    // }
   }
 
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) async {
@@ -94,22 +80,12 @@ class _TimeTabExampleState extends State<TimeTab>
       });
       String jsonTags =
           jsonEncode(Provider.of<BookingInfo>(context, listen: false).services);
-      // print('jsonTags');
-      // print(jsonTags);
-      // print(cdate);
       futureBookingVariants = await BookingInfo().fetchBookingVariants(
           Provider.of<OfficeList>(context, listen: false).office.officeId,
           cdate,
           jsonTags);
       _selectedEvents.value = _getEventsForDay(selectedDay);
 
-      // print(_selectedEvents.value.isEmpty);
-      // print(_selectedEvents.value);
-      // if (_selectedEvents.value.isEmpty == false) {
-      //   Provider.of<BookingInfo>(context, listen: false).addDateTime(
-      //       DateFormat("yyyy-MM-dd").format(_selectedDay!),
-      //       _selectedEvents.value[_selectedIndex]);
-      // }
     }
   }
 

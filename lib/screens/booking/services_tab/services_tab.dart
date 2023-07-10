@@ -1,3 +1,6 @@
+//one of the booking tabs, includes services already chosen by the customer
+//and button to add new services (->services_add)
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:fl_booking_app/models/models.dart';
@@ -25,10 +28,11 @@ class _ServicesTabState extends State<ServicesTab>
     super.build(context);
 
     double screenheight = MediaQuery.of(context).size.height;
-    double screenwidth = MediaQuery.of(context).size.width;
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Container(
+      floatingActionButton: 
+      //navigation button
+      Container(
         width: MediaQuery.of(context).size.width,
         color: Color.fromARGB(157, 192, 158, 120),
         height: 70,
@@ -201,6 +205,7 @@ class _ServicesTabState extends State<ServicesTab>
   }
 }
 
+//list of services, chosen by the customer
 class ServicesChosen extends StatefulWidget {
   const ServicesChosen({super.key});
 

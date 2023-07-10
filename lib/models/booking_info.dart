@@ -89,7 +89,7 @@ class BookingInfo extends ChangeNotifier {
   }
 
   void addService(FLService aService) {
-    addSum(aService.price);
+    aService.discountedPrice<aService.price ? addSum(aService.discountedPrice) : addSum(aService.price);
     for (var element in _services) {
       if (element.key == aService.key) {
         element.quantity++;
@@ -103,7 +103,7 @@ class BookingInfo extends ChangeNotifier {
 
   void deleteService(FLService aService) {
     if (_services.contains(aService) == true) {
-      subtractSum(aService.price);
+      aService.discountedPrice<aService.price ? subtractSum(aService.discountedPrice) : subtractSum(aService.price);
       int qty = _services
           .firstWhere((element) => element.key == aService.key)
           .quantity--;
