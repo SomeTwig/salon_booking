@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
 import 'routes/route.dart' as route;
 
 import 'models/locale.dart';
@@ -45,11 +44,17 @@ class _MyAppState extends State<MyApp> {
           debugShowCheckedModeBanner: false,
           title: 'Salon Booking App',
           theme: ThemeData(
-            useMaterial3: true,
-            colorScheme: ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 217,	176,	126, ), secondary: Color.fromARGB(255, 	3,	166,	166)),
-            floatingActionButtonTheme:  FloatingActionButtonThemeData(
-      backgroundColor: Color.fromARGB(255, 111, 247, 246),
-    ),
+            colorScheme: ColorScheme.fromSeed(
+                seedColor: Color.fromARGB(
+                  255,
+                  217,
+                  176,
+                  126,
+                ),
+                secondary: Color.fromARGB(255, 3, 166, 166)),
+            floatingActionButtonTheme: FloatingActionButtonThemeData(
+              backgroundColor: Color.fromARGB(255, 111, 247, 246),
+            ),
           ),
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
