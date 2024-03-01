@@ -56,12 +56,15 @@ final goRouter = GoRouter(
               pageBuilder: (context, state) => const NoTransitionPage(
                 child: MyHomePage(),
               ),
-            ),
-            GoRoute(
-              path: '/booking',
-              pageBuilder: (context, state) => const NoTransitionPage(
-                child: BookingPage(),
-              ),
+              routes: [
+                GoRoute(
+                  parentNavigatorKey: _rootNavigatorKey,
+                  path: 'booking',
+                  pageBuilder: (context, state) => const NoTransitionPage(
+                    child: BookingPage(),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
@@ -127,7 +130,6 @@ class ScaffoldWithNestedNavigation extends StatelessWidget {
             label: 'My Bookings',
             icon: Icon(Icons.calendar_today),
           ),
-          
           NavigationDestination(
             label: 'Account',
             icon: Icon(Icons.person),

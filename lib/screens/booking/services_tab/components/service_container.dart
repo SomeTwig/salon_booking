@@ -71,7 +71,7 @@ class _ServiceContainerState extends State<ServiceContainer> {
   Widget _decrementButton(FLService aService) {
     return IconButton(
       onPressed: () {
-        print(_isDeleteButtonDisabled);
+        //print(_isDeleteButtonDisabled);
         if (_isDeleteButtonDisabled == true) {
           null;
         } else {

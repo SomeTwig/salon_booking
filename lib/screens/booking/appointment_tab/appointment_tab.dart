@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:provider/provider.dart';
 import 'package:fl_booking_app/models/models.dart';
+import 'package:fl_booking_app/data/db_helper.dart';
+import 'package:fl_booking_app/data/booking_data.dart';
 
 class AppointmentTab extends StatefulWidget {
   const AppointmentTab(
@@ -20,6 +22,8 @@ class _AppointmentTabState extends State<AppointmentTab>
   TextEditingController controllerName = TextEditingController();
   TextEditingController controllerComment = TextEditingController();
 
+  late DatabaseHelper dbHelper;
+
   String initialCountry = 'UA';
   PhoneNumber pNumber = PhoneNumber(isoCode: 'UA');
   bool? check = false;
@@ -28,28 +32,53 @@ class _AppointmentTabState extends State<AppointmentTab>
   bool get wantKeepAlive => true;
 
   @override
+  void initState() {
+    super.initState();
+    dbHelper = DatabaseHelper();
+    dbHelper.initDatabase();
+  }
+
+  void dbCreateBooking() {
+    BookingData bData = BookingData(
+      date: Provider.of<BookingInfo>(context, listen: false).bDate,
+      time: Provider.of<BookingInfo>(context, listen: false).bTime,
+      salonName: Provider.of<BookingInfo>(context, listen: false).sName,
+      salonId: Provider.of<BookingInfo>(context, listen: false).salonId,
+      priceTotal: Provider.of<BookingInfo>(context, listen: false).priceTotal,
+      clientName: Provider.of<BookingInfo>(context, listen: false).clientName,
+      clientPhone: Provider.of<BookingInfo>(context, listen: false).clientPhone,
+      clientComment:
+          Provider.of<BookingInfo>(context, listen: false).clientComment,
+      personalPermit:
+          Provider.of<BookingInfo>(context, listen: false).personalPermit,
+    );
+    dbHelper.insertBooking(bData);
+    dbHelper.getBookings();
+  }
+
+  @override
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: Container(
         width: MediaQuery.of(context).size.width,
-        color: const Color.fromARGB(157, 192, 158, 120),
-        height: 70,
+        color: const Color.fromARGB(255, 255, 221, 182),
+        height: 72,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
               padding: const EdgeInsets.only(left: 10),
-              child: ElevatedButton(
+              child: FilledButton(
                 onPressed: () => {
                   widget.onPrev(),
                 },
-                style: ElevatedButton.styleFrom(
+                style: FilledButton.styleFrom(
                     textStyle: const TextStyle(
                         fontSize: 18, fontWeight: FontWeight.bold),
-                    minimumSize: const Size(100, 50)),
+                    minimumSize: const Size(80, 48)),
                 child: const Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -69,7 +98,7 @@ class _AppointmentTabState extends State<AppointmentTab>
             const Spacer(),
             Container(
               padding: const EdgeInsets.only(right: 10),
-              child: ElevatedButton(
+              child: FilledButton(
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -83,6 +112,7 @@ class _AppointmentTabState extends State<AppointmentTab>
                             pNumber.phoneNumber.toString(),
                             controllerComment.text,
                             check!);
+                    dbCreateBooking();
                     widget.onSubmit();
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -91,10 +121,10 @@ class _AppointmentTabState extends State<AppointmentTab>
                     );
                   }
                 },
-                style: ElevatedButton.styleFrom(
+                style: FilledButton.styleFrom(
                     textStyle: const TextStyle(
                         fontSize: 18, fontWeight: FontWeight.bold),
-                    minimumSize: const Size(100, 50)),
+                    minimumSize: const Size(80, 48)),
                 child: const Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -115,14 +145,6 @@ class _AppointmentTabState extends State<AppointmentTab>
             ),
             child: Column(
               children: [
-                Text(
-                  'Выбраный салон: \n${Provider.of<BookingInfo>(context, listen: false).sName}',
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w300,
-                  ),
-                ),
-                const SizedBox(height: 20),
                 Text(
                   'Выбраное время: \n${Provider.of<BookingInfo>(context, listen: false).bDate} \n ${Provider.of<BookingInfo>(context, listen: false).bTime}',
                   style: const TextStyle(
@@ -209,76 +231,6 @@ class _AppointmentTabState extends State<AppointmentTab>
           ))),
     );
   }
-
-  // final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
-  // final TextEditingController controller = TextEditingController();
-  // String initialCountry = 'NG';
-  // PhoneNumber number = PhoneNumber(isoCode: 'NG');
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Form(
-  //     key: formKey,
-  //     child: Container(
-  //       child: Column(
-  //         mainAxisAlignment: MainAxisAlignment.center,
-  //         children: <Widget>[
-  //           InternationalPhoneNumberInput(
-  //             onInputChanged: (PhoneNumber number) {
-  //               print(number.phoneNumber);
-  //             },
-  //             onInputValidated: (bool value) {
-  //               print(value);
-  //             },
-  //             selectorConfig: SelectorConfig(
-  //               selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
-  //             ),
-  //             ignoreBlank: false,
-  //             autoValidateMode: AutovalidateMode.disabled,
-  //             selectorTextStyle: TextStyle(color: Colors.black),
-  //             initialValue: number,
-  //             textFieldController: controller,
-  //             formatInput: true,
-  //             keyboardType:
-  //                 TextInputType.numberWithOptions(signed: true, decimal: true),
-  //             inputBorder: OutlineInputBorder(),
-  //             onSaved: (PhoneNumber number) {
-  //               print('On Saved: $number');
-  //             },
-  //           ),
-  //           ElevatedButton(
-  //             onPressed: () {
-  //               formKey.currentState?.validate();
-  //             },
-  //             child: Text('Validate'),
-  //           ),
-  //           ElevatedButton(
-  //             onPressed: () {
-  //               getPhoneNumber('+15417543010');
-  //             },
-  //             child: Text('Update'),
-  //           ),
-  //           ElevatedButton(
-  //             onPressed: () {
-  //               formKey.currentState?.save();
-  //             },
-  //             child: Text('Save'),
-  //           ),
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  // void getPhoneNumber(String phoneNumber) async {
-  //   PhoneNumber number =
-  //       await PhoneNumber.getRegionInfoFromPhoneNumber(phoneNumber, 'US');
-
-  //   setState(() {
-  //     this.number = number;
-  //   });
-  // }
 
   @override
   void dispose() {

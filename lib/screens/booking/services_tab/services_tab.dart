@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:fl_booking_app/models/models.dart';
 import 'package:fl_booking_app/screens/booking/services_tab/services_add/services_add.dart';
 import 'package:fl_booking_app/screens/booking/services_tab/components/service_container.dart';
+import 'package:fl_booking_app/screens/booking/booking_bottom_sheet.dart';
 
 //Main body of the page
 class ServicesTab extends StatefulWidget {
@@ -30,12 +31,12 @@ class _ServicesTabState extends State<ServicesTab>
     double screenheight = MediaQuery.of(context).size.height;
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: 
-      //navigation button
-      Container(
+      floatingActionButton:
+          //navigation button
+          Container(
         width: MediaQuery.of(context).size.width,
-        color: const Color.fromARGB(157, 192, 158, 120),
-        height: 70,
+        color: const Color.fromARGB(255, 255, 221, 182),
+        height: 72,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.end,
@@ -45,13 +46,15 @@ class _ServicesTabState extends State<ServicesTab>
                 alignment: Alignment.centerRight,
                 child: Padding(
                     padding: const EdgeInsets.only(right: 10),
-                    child: Consumer<BookingInfo>(builder: (context, bookingInfo, _) {
-                      return ElevatedButton(
-                        onPressed: bookingInfo.services.isEmpty ? null : widget.onNext, 
-                        style: ElevatedButton.styleFrom(
+                    child: Consumer<BookingInfo>(
+                        builder: (context, bookingInfo, _) {
+                      return FilledButton(
+                        onPressed:
+                            bookingInfo.services.isEmpty ? null : widget.onNext,
+                        style: FilledButton.styleFrom(
                             textStyle: const TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
-                            minimumSize: const Size(100, 50)),
+                            minimumSize: const Size(80, 48)),
                         child: const Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -79,123 +82,83 @@ class _ServicesTabState extends State<ServicesTab>
           height: screenheight,
           child: Padding(
             padding: const EdgeInsets.only(bottom: 70.0),
-            child: Column(
+            child: Stack(
               children: [
-                Expanded(
-                  child: SingleChildScrollView(
-                    physics: const BouncingScrollPhysics(),
-                    child: SafeArea(
-                      child: Column(
-                        children: [
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Container(
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.vertical(
-                                top: Radius.circular(50),
-                              ),
-                            ),
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        child: Text(
-                                          'Выбраный салон: \n${Provider.of<BookingInfo>(context, listen: false).sName}',
-                                          style: const TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w300,
+                Column(
+                  children: [
+                    Expanded(
+                      child: SingleChildScrollView(
+                        physics: const BouncingScrollPhysics(),
+                        child: SafeArea(
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 10),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      width: double.infinity,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 16.0),
+                                        child: FilledButton.icon(
+                                          onPressed: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const ServicesAdd()),
+                                            );
+                                          },
+                                          icon: Icon(
+                                            // <-- Icon
+                                            Icons.add_rounded,
+                                            size: 20.0,
+                                          ),
+                                          label: Text('Add services'),
+                                          style: FilledButton.styleFrom(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 16),
+                                            // shape: RoundedRectangleBorder(
+                                            //     borderRadius: BorderRadius.only(
+                                            //         bottomLeft: Radius.circular(16),
+                                            //         bottomRight:
+                                            //             Radius.circular(16))),
+
+                                            backgroundColor: Color.fromARGB(
+                                                255, 3, 166, 166),
+                                            textStyle: const TextStyle(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold),
                                           ),
                                         ),
                                       ),
-                                      ElevatedButton(
-                                        onPressed: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const ServicesAdd()),
-                                          );
-                                        },
-                                        style: ElevatedButton.styleFrom(
-                                          textStyle: const TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        child: const Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Text(
-                                                'Добавить\n услугу'), // <-- Text
-                                            SizedBox(
-                                              width: 5,
-                                            ),
-                                            Icon(
-                                              // <-- Icon
-                                              Icons.add_rounded,
-                                              size: 20.0,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 30,
-                                  ),
-                                  const Text(
-                                    'Выбранные услуги:',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w900,
                                     ),
-                                  ),
-                                  const ServicesChosen(),
-                                  //ExpansionTileServices(),
-                                ],
+                                    const SizedBox(
+                                      height: 24,
+                                    ),
+                                    const Text(
+                                      'Выбранные услуги:',
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w900,
+                                      ),
+                                    ),
+                                    const ServicesChosen(),
+                                    //ExpansionTileServices(),
+                                  ],
+                                ),
                               ),
-                            ),
+                            ],
                           ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  height: 50,
-                  color: const Color.fromARGB(157, 192, 158, 120),
-                  child: Row(
-                    children: [
-                      const Text(
-                        'Сумма',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w900,
                         ),
                       ),
-                      const Spacer(),
-                      Consumer<BookingInfo>(
-                        builder: (context, serviceList, _) {
-                          return Text(
-                            '${serviceList.priceTotal} грн',
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w900,
-                            ),
-                          );
-                        },
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
+                ServicesBottomSheet(),
               ],
             ),
           ),

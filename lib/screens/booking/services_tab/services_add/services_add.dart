@@ -20,23 +20,23 @@ class _ServicesAddState extends State<ServicesAdd> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: Container(
         width: MediaQuery.of(context).size.width,
-        color: const Color.fromARGB(157, 192, 158, 120),
-        height: 70,
+        color: const Color.fromARGB(255, 255, 221, 182),
+        height: 72,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
               padding: const EdgeInsets.only(left: 10),
-              child: ElevatedButton(
+              child: FilledButton(
                 onPressed: () {
                   Provider.of<ServiceList>(context, listen: false)
                       .deleteAllServices();
                   Navigator.pop(context);
                 },
-                style: ElevatedButton.styleFrom(
-                    textStyle:
-                        const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                style: FilledButton.styleFrom(
+                    textStyle: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.bold),
                     minimumSize: const Size(70, 40)),
                 child: const Row(
                   mainAxisSize: MainAxisSize.min,
@@ -57,18 +57,19 @@ class _ServicesAddState extends State<ServicesAdd> {
             const Spacer(),
             Padding(
               padding: const EdgeInsets.only(right: 10),
-              child: ElevatedButton(
+              child: FilledButton(
                 onPressed: () {
                   Provider.of<BookingInfo>(context, listen: false).addServices(
+                      Provider.of<ServiceList>(context, listen: false).services,
                       Provider.of<ServiceList>(context, listen: false)
-                          .services, Provider.of<ServiceList>(context, listen: false).serviceSum);
+                          .serviceSum);
                   Provider.of<ServiceList>(context, listen: false)
                       .deleteAllServices();
                   Navigator.pop(context);
                 },
                 style: ElevatedButton.styleFrom(
-                    textStyle:
-                        const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    textStyle: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.bold),
                     minimumSize: const Size(70, 40)),
                 child: const Row(
                   mainAxisSize: MainAxisSize.min,
@@ -137,8 +138,12 @@ class _ServicesAddState extends State<ServicesAdd> {
               Container(
                 width: MediaQuery.of(context).size.width,
                 padding: const EdgeInsets.symmetric(horizontal: 20),
-                height: 50,
-                color: const Color.fromARGB(157, 192, 158, 120),
+                height: 64,
+                decoration: BoxDecoration(
+                color: const Color.fromARGB(255, 255, 221, 182),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(16),
+                        topRight: Radius.circular(16))),
                 child: Row(
                   children: [
                     const Text(
@@ -149,15 +154,17 @@ class _ServicesAddState extends State<ServicesAdd> {
                       ),
                     ),
                     const Spacer(),
-                    Consumer<ServiceList>(builder: (context, serviceList, _) {
-                      return Text(
-                        '${serviceList.serviceSum} грн',
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w900,
-                        ),
-                      );
-                    },),
+                    Consumer<ServiceList>(
+                      builder: (context, serviceList, _) {
+                        return Text(
+                          '${serviceList.serviceSum} грн',
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w900,
+                          ),
+                        );
+                      },
+                    ),
                   ],
                 ),
               ),

@@ -170,7 +170,7 @@ class _SalonContainerState extends State<SalonContainer> {
                             .addSalon(widget.flSalon.officeName, widget.flSalon.officeId);
                         Provider.of<OfficeList>(context, listen: false)
                             .addOffice(widget.flSalon);
-                        context.go('/booking');
+                        GoRouter.of(context).go('/home/booking');
                       },
                       child: const Text("Book"),
                     ),

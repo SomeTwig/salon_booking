@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-import 'package:fl_booking_app/screens/my_bookings/components/my_booking_container.dart';
+import 'package:fl_booking_app/screens/my_bookings/my_booking_container/my_booking_container.dart';
 
 import 'package:fl_booking_app/data/data.dart';
 
 class MyBookings extends StatefulWidget {
-  const MyBookings({Key? key}) : super(key: key);
+  const MyBookings({super.key});
 
   @override
-  _MyBookingsState createState() => _MyBookingsState();
+  State<MyBookings> createState() => _MyBookingsState();
 }
 
 class _MyBookingsState extends State<MyBookings> {
@@ -25,7 +25,8 @@ class _MyBookingsState extends State<MyBookings> {
           shrinkWrap: true,
           itemCount: 2,
           itemBuilder: (BuildContext context, int index) {
-            return BookingContainer(mockBooking: myMockBookings.elementAt(index));
+            return BookingContainer(
+                mockBooking: myMockBookings.elementAt(index));
           },
         ),
       ),

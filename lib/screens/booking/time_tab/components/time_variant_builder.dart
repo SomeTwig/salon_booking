@@ -19,45 +19,38 @@ class _TimeVariantBuilderState extends State<TimeVariantBuilder> {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
-    return ListView.separated(
-      itemCount: widget.bookingVarList.length,
-      separatorBuilder: (BuildContext context, int index) => const Divider(
-        height: 1,
-        color: Color.fromARGB(0, 255, 255, 255),
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: Wrap(
+          direction: Axis.vertical,
+          spacing: 16,
+          runSpacing: 16,
+          children: List<Widget>.generate(
+            widget.bookingVarList.length,
+            (int index) {
+              //print(value.length);
+              String wTimeFrom = widget.bookingVarList[index].timeFrom.substring(
+                  0, widget.bookingVarList[index].timeFrom.lastIndexOf(':'));
+              String wTimeTo = widget.bookingVarList[index].timeTo.substring(
+                  0, widget.bookingVarList[index].timeFrom.lastIndexOf(':'));
+              return ChoiceChip(
+                label: Text("$wTimeFrom - $wTimeTo"),
+                showCheckmark: false,
+                selected: index == _selectedIndex,
+                onSelected: (bool selected) {
+                  setState(() {
+                    _selectedIndex = index;
+                  });
+                  Provider.of<BookingInfo>(context, listen: false)
+                      .addTime("$wTimeFrom - $wTimeTo");
+                },
+              );
+            },
+          ),
+        ),
       ),
-      itemBuilder: (context, index) {
-        //print(value.length);
-        String wTimeFrom = widget.bookingVarList[index].timeFrom.substring(
-            0, widget.bookingVarList[index].timeFrom.lastIndexOf(':'));
-        String wTimeTo = widget.bookingVarList[index].timeTo.substring(
-            0, widget.bookingVarList[index].timeFrom.lastIndexOf(':'));
-        return Container(
-          margin: const EdgeInsets.symmetric(
-            horizontal: 12.0,
-            vertical: 4.0,
-          ),
-          child: Material(
-            child: ListTile(
-              shape: RoundedRectangleBorder(
-                side: const BorderSide(width: 2),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              title: Text("$wTimeFrom - $wTimeTo"),
-              selectedColor: const Color.fromARGB(255, 7, 4, 4),
-              selectedTileColor: const Color.fromARGB(255, 198, 205, 220),
-              selected: index == _selectedIndex,
-              onTap: () {
-                setState(() {
-                  _selectedIndex = index;
-                });
-                Provider.of<BookingInfo>(context, listen: false)
-                    .addTime("$wTimeFrom - $wTimeTo");
-              },
-            ),
-          ),
-        );
-      },
     );
   }
 }

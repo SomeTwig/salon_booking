@@ -51,7 +51,7 @@ class _MyAppState extends State<MyApp> {
                   176,
                   126,
                 ),
-                secondary: Color.fromARGB(255, 3, 166, 166)),
+                secondary: Color.fromARGB(255, 3, 166, 166),),
             floatingActionButtonTheme: FloatingActionButtonThemeData(
               backgroundColor: Color.fromARGB(255, 111, 247, 246),
             ),

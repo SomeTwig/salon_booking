@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:fl_booking_app/models/flService.dart';
 import 'package:fl_booking_app/models/booking_variant.dart';
@@ -34,6 +33,10 @@ class BookingInfo extends ChangeNotifier {
   String get clientComment => _clientComment;
   bool get personalPermit => _personalPermit;
 
+ 
+
+
+
   Future<List<BookingVariant>> fetchBookingVariants(
       int salId, String selectedDate, String jsonBody) async {
     _status = ServiceStatus.loading;
@@ -68,7 +71,7 @@ class BookingInfo extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addTime(String aTime){
+  void addTime(String aTime) {
     _time = aTime;
     notifyListeners();
   }
@@ -89,7 +92,9 @@ class BookingInfo extends ChangeNotifier {
   }
 
   void addService(FLService aService) {
-    aService.discountedPrice<aService.price ? addSum(aService.discountedPrice) : addSum(aService.price);
+    aService.discountedPrice < aService.price
+        ? addSum(aService.discountedPrice)
+        : addSum(aService.price);
     for (var element in _services) {
       if (element.key == aService.key) {
         element.quantity++;
@@ -103,7 +108,9 @@ class BookingInfo extends ChangeNotifier {
 
   void deleteService(FLService aService) {
     if (_services.contains(aService) == true) {
-      aService.discountedPrice<aService.price ? subtractSum(aService.discountedPrice) : subtractSum(aService.price);
+      aService.discountedPrice < aService.price
+          ? subtractSum(aService.discountedPrice)
+          : subtractSum(aService.price);
       int qty = _services
           .firstWhere((element) => element.key == aService.key)
           .quantity--;

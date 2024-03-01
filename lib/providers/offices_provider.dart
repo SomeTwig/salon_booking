@@ -45,7 +45,6 @@ class OfficeList with ChangeNotifier {
 
       _status = ServiceStatus.success;
       notifyListeners();
-      print(res);
       return res;
     } catch (e) {
       print('fetchAllOfficeDates Error: $e');
