@@ -53,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
           maxHeight: MediaQuery.of(context).size.height,
         ),
         child: Padding(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -65,7 +65,7 @@ class _LoginPageState extends State<LoginPage> {
                       labelText: "Phone",
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(24.0),
-                        borderSide: BorderSide(),
+                        borderSide: const BorderSide(),
                       ),
                     ),
                     onInputChanged: (PhoneNumber number) {},
@@ -129,7 +129,7 @@ class _LoginPageState extends State<LoginPage> {
                   },
                   style: FilledButton.styleFrom(
                     foregroundColor: Colors.black,
-                    backgroundColor: Color.fromARGB(255, 111, 247, 246),
+                    backgroundColor: const Color.fromARGB(255, 111, 247, 246),
                   ),
                   child: const Padding(
                     padding: EdgeInsets.symmetric(vertical: 16.0),

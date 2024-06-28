@@ -157,13 +157,13 @@ class _NewAppointmentTabState extends State<NewAppointmentTab>
           GoRouter.of(context)
               .push('/login', extra: {"pageData": 'appointment'});
         },
-        child: Text('Login'),
         style: FilledButton.styleFrom(
-          padding: EdgeInsets.symmetric(vertical: 16),
-          backgroundColor: Color.fromARGB(255, 3, 166, 166),
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          backgroundColor: const Color.fromARGB(255, 3, 166, 166),
           textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          fixedSize: Size.fromWidth(124),
+          fixedSize: const Size.fromWidth(124),
         ),
+        child: const Text('Login'),
       );
     }
     return Column(
@@ -171,14 +171,14 @@ class _NewAppointmentTabState extends State<NewAppointmentTab>
       children: [
         Text(
           Provider.of<MyAccount>(context, listen: false).accountName,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.w300,
           ),
         ),
         Text(
           Provider.of<MyAccount>(context, listen: false).accountPhone,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 18,
           ),
         ),
@@ -189,7 +189,7 @@ class _NewAppointmentTabState extends State<NewAppointmentTab>
   Widget newAppointmentInfo() {
     return ListView(
       children: [
-        Text(
+        const Text(
           'Ваш запис до салону',
           textAlign: TextAlign.center,
           style: TextStyle(
@@ -199,12 +199,12 @@ class _NewAppointmentTabState extends State<NewAppointmentTab>
         Text(
           Provider.of<BookingInfo>(context, listen: false).sName,
           textAlign: TextAlign.center,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w600,
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 12,
         ),
         Row(
@@ -214,12 +214,12 @@ class _NewAppointmentTabState extends State<NewAppointmentTab>
               decoration: const BoxDecoration(
                   color: Color.fromARGB(255, 255, 221, 182),
                   borderRadius: BorderRadius.all(Radius.circular(12))),
-              padding: EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
               child: Center(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(
+                    const Text(
                       'Date',
                       style: TextStyle(
                         fontSize: 18,
@@ -228,7 +228,7 @@ class _NewAppointmentTabState extends State<NewAppointmentTab>
                     ),
                     Text(
                       Provider.of<BookingInfo>(context, listen: false).bDate,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 18,
                       ),
                     ),
@@ -240,12 +240,12 @@ class _NewAppointmentTabState extends State<NewAppointmentTab>
               decoration: const BoxDecoration(
                   color: Color.fromARGB(255, 255, 221, 182),
                   borderRadius: BorderRadius.all(Radius.circular(12))),
-              padding: EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
               child: Center(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(
+                    const Text(
                       'Time',
                       style: TextStyle(
                         fontSize: 18,
@@ -254,7 +254,7 @@ class _NewAppointmentTabState extends State<NewAppointmentTab>
                     ),
                     Text(
                       Provider.of<BookingInfo>(context, listen: false).bTime,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 18,
                       ),
                     ),
@@ -264,7 +264,7 @@ class _NewAppointmentTabState extends State<NewAppointmentTab>
             ),
           ],
         ),
-        Text(
+        const Text(
           'Акаунт',
           textAlign: TextAlign.center,
           style: TextStyle(
@@ -272,11 +272,11 @@ class _NewAppointmentTabState extends State<NewAppointmentTab>
           ),
         ),
         Container(
-          margin: EdgeInsets.symmetric(horizontal: 24),
+          margin: const EdgeInsets.symmetric(horizontal: 24),
           decoration: BoxDecoration(
-              border: Border.all(color: Color.fromARGB(255, 255, 221, 182)),
-              borderRadius: BorderRadius.all(Radius.circular(12))),
-          padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+              border: Border.all(color: const Color.fromARGB(255, 255, 221, 182)),
+              borderRadius: const BorderRadius.all(Radius.circular(12))),
+          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
           child: Center(
             child: Consumer<MyAccount>(
               builder: (context, account, child) => chooseWidget(),

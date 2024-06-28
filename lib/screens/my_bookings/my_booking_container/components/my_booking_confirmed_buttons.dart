@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:fl_booking_app/data/booking_data.dart';
 
-import 'package:fl_booking_app/models/models.dart';
 import 'package:fl_booking_app/data/db_helper.dart';
-import 'package:fl_booking_app/data/data.dart';
 
 class ConfirmedButtons extends StatefulWidget {
   final BookingData myBooking;
@@ -24,6 +22,7 @@ class _ConfirmedButtonsState extends State<ConfirmedButtons> {
 
   late DatabaseHelper dbHelper;
 
+  @override
   void initState() {
     super.initState();
 
@@ -66,7 +65,7 @@ class _ConfirmedButtonsState extends State<ConfirmedButtons> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       child: Align(
         alignment: Alignment.topRight,
         child: FilledButton(
@@ -78,13 +77,13 @@ class _ConfirmedButtonsState extends State<ConfirmedButtons> {
               context: context,
               builder: (BuildContext context) {
                 return Container(
-                  constraints: BoxConstraints(minHeight: 100, maxHeight: 400),
+                  constraints: const BoxConstraints(minHeight: 100, maxHeight: 400),
                   child: ListView.separated(
                     shrinkWrap: true,
                     padding: const EdgeInsets.all(8),
                     itemCount: entries.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return Container(
+                      return SizedBox(
                         height: 50,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 32.0),
@@ -94,7 +93,7 @@ class _ConfirmedButtonsState extends State<ConfirmedButtons> {
                             children: [
                               Center(
                                   child: Text(entries[index],
-                                      style: TextStyle(fontSize: 16))),
+                                      style: const TextStyle(fontSize: 16))),
                               Ink(
                                 decoration: const ShapeDecoration(
                                   shape: CircleBorder(),
@@ -102,7 +101,7 @@ class _ConfirmedButtonsState extends State<ConfirmedButtons> {
                                 child: IconButton(
                                   icon: const Icon(Icons.navigate_next),
                                   iconSize: 32,
-                                  color: Color.fromARGB(255, 132, 84, 0),
+                                  color: const Color.fromARGB(255, 132, 84, 0),
                                   onPressed: () {
                                     switch (index) {
                                       case 2:

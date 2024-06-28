@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import 'package:fl_booking_app/models/models.dart';
-import 'package:fl_booking_app/data/db_helper.dart';
-import 'package:fl_booking_app/data/data.dart';
-import 'package:fl_booking_app/data/booking_data.dart';
 
 class MyServicesList extends StatefulWidget {
   final List<FLService> myBookingServices;
@@ -23,7 +19,7 @@ class _MyServicesListState extends State<MyServicesList> {
     return ExpansionTile(
       title: const Text('Services'),
       trailing: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Color.fromARGB(255, 255, 221, 182),
           shape: BoxShape.rectangle,
           borderRadius: BorderRadius.all(Radius.circular(8.0)),
@@ -43,7 +39,7 @@ class _MyServicesListState extends State<MyServicesList> {
           itemCount: widget.myBookingServices.length,
           itemBuilder: (BuildContext context, int index) {
             return Padding(
-              padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -59,7 +55,7 @@ class _MyServicesListState extends State<MyServicesList> {
                             Text(
                                 widget.myBookingServices[index].discountedPrice
                                     .toStringAsFixed(2),
-                                style: TextStyle(
+                                style: const TextStyle(
                                     decoration: TextDecoration.lineThrough)),
                           ],
                         ),

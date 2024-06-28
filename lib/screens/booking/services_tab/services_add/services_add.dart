@@ -139,8 +139,8 @@ class _ServicesAddState extends State<ServicesAdd> {
                 width: MediaQuery.of(context).size.width,
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 height: 64,
-                decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 255, 221, 182),
+                decoration: const BoxDecoration(
+                color: Color.fromARGB(255, 255, 221, 182),
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(16),
                         topRight: Radius.circular(16))),

@@ -112,14 +112,14 @@ class _ServicesTabState extends State<ServicesTab>
                                                       const ServicesAdd()),
                                             );
                                           },
-                                          icon: Icon(
+                                          icon: const Icon(
                                             // <-- Icon
                                             Icons.add_rounded,
                                             size: 20.0,
                                           ),
-                                          label: Text('Add services'),
+                                          label: const Text('Add services'),
                                           style: FilledButton.styleFrom(
-                                            padding: EdgeInsets.symmetric(
+                                            padding: const EdgeInsets.symmetric(
                                                 vertical: 16),
                                             // shape: RoundedRectangleBorder(
                                             //     borderRadius: BorderRadius.only(
@@ -127,7 +127,7 @@ class _ServicesTabState extends State<ServicesTab>
                                             //         bottomRight:
                                             //             Radius.circular(16))),
 
-                                            backgroundColor: Color.fromARGB(
+                                            backgroundColor: const Color.fromARGB(
                                                 255, 3, 166, 166),
                                             textStyle: const TextStyle(
                                                 fontSize: 20,
@@ -158,7 +158,7 @@ class _ServicesTabState extends State<ServicesTab>
                     ),
                   ],
                 ),
-                ServicesBottomSheet(),
+                const ServicesBottomSheet(),
               ],
             ),
           ),

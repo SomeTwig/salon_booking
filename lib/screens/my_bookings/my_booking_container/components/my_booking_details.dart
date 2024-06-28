@@ -3,12 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:fl_booking_app/data/booking_data.dart';
 
 class MyBookingDetails extends StatefulWidget {
-  final List<String> mockBookingDetails;
 
   final BookingData myBooking;
 
   const MyBookingDetails(
-      {super.key, required this.mockBookingDetails, required this.myBooking});
+      {super.key, required this.myBooking});
   @override
   State<MyBookingDetails> createState() => _MyBookingDetailsState();
 }
@@ -30,34 +29,34 @@ class _MyBookingDetailsState extends State<MyBookingDetails> {
               Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Icon(Icons.calendar_today),
-                  SizedBox(
+                  const Icon(Icons.calendar_today),
+                  const SizedBox(
                     width: 8,
                   ),
                   Text(widget.myBooking.date),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
               Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Icon(Icons.access_time),
-                  SizedBox(
+                  const Icon(Icons.access_time),
+                  const SizedBox(
                     width: 8,
                   ),
                   Text(widget.myBooking.time),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
               Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Icon(Icons.location_on),
-                  SizedBox(
+                  const Icon(Icons.location_on),
+                  const SizedBox(
                     width: 8,
                   ),
                   SizedBox(
@@ -68,10 +67,10 @@ class _MyBookingDetailsState extends State<MyBookingDetails> {
                       )),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
-              Row(
+              const Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Icon(Icons.phone_android),
@@ -88,9 +87,9 @@ class _MyBookingDetailsState extends State<MyBookingDetails> {
           alignment: Alignment.topRight,
           clipBehavior: Clip.none,
           children: [
-            Align(
+            const Align(
               alignment: Alignment.topRight,
-              child: Container(
+              child: SizedBox(
                 width: 64,
                 height: 128,
               ),
@@ -111,13 +110,13 @@ class _MyBookingDetailsState extends State<MyBookingDetails> {
                     alignment: Alignment.centerLeft,
                     child: IconButton(
                       onPressed: () {},
-                      icon: Icon(Icons.location_on),
+                      icon: const Icon(Icons.location_on),
                       style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(16.0),
                           ),
-                          backgroundColor: Color.fromARGB(255, 111, 247, 246),
-                          fixedSize: Size(48, 48)),
+                          backgroundColor: const Color.fromARGB(255, 111, 247, 246),
+                          fixedSize: const Size(48, 48)),
                     )),
               ),
             ),
@@ -145,8 +144,8 @@ class _MyBookingDetailsState extends State<MyBookingDetails> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(16.0),
                           ),
-                          backgroundColor: Color.fromARGB(255, 111, 247, 246),
-                          fixedSize: Size(48, 48)),
+                          backgroundColor: const Color.fromARGB(255, 111, 247, 246),
+                          fixedSize: const Size(48, 48)),
                     )),
               ),
             ),

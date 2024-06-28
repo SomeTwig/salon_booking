@@ -288,7 +288,7 @@ class _TimeTabExampleState extends State<TimeTab>
                     ),
                   ],
                 ),
-                ServicesBottomSheet(),
+                const ServicesBottomSheet(),
               ],
             ),
           ),

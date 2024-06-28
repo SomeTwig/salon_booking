@@ -15,7 +15,7 @@ class _FinishedButtonsState extends State<FinishedButtons> {
     return Column(
       children: [
         Container(
-          padding: EdgeInsets.all(8),
+          padding: const EdgeInsets.all(8),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -31,11 +31,11 @@ class _FinishedButtonsState extends State<FinishedButtons> {
           ),
         ),
         Container(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Your rating:"),
+              const Text("Your rating:"),
               RatingBar.builder(
                 initialRating: 0,
                 minRating: 1,

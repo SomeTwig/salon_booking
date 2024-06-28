@@ -58,7 +58,7 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: BackButton(),
+        leading: const BackButton(),
         title: const Text('Register'),
       ),
       resizeToAvoidBottomInset: false,
@@ -68,7 +68,7 @@ class _RegisterPageState extends State<RegisterPage> {
             maxHeight: MediaQuery.of(context).size.height - 70,
           ),
           child: Padding(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             child: Form(
               key: clientRegisterFormKey,
               child: Column(
@@ -86,7 +86,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             labelText: "Phone",
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(24.0),
-                              borderSide: BorderSide(),
+                              borderSide: const BorderSide(),
                             ),
                           ),
                           initialValue: widget.phoneData,
@@ -122,7 +122,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           labelText: "Name",
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(24.0),
-                            borderSide: BorderSide(),
+                            borderSide: const BorderSide(),
                           ),
                         ),
                         validator: (value) {
@@ -144,7 +144,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               });
                             },
                           ),
-                          Flexible(
+                          const Flexible(
                             child: Text(
                               'Я погоджуюсь з умовами політики конфіденційності і дозволяю обробку моїх даних. *',
                             ),
@@ -159,7 +159,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       onPressed: isChecked ? validateFunction : null,
                       style: FilledButton.styleFrom(
                         foregroundColor: Colors.black,
-                        backgroundColor: Color.fromARGB(255, 111, 247, 246),
+                        backgroundColor: const Color.fromARGB(255, 111, 247, 246),
                       ),
                       child: const Padding(
                         padding: EdgeInsets.symmetric(vertical: 16.0),

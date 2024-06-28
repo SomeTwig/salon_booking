@@ -21,8 +21,8 @@ class _ServicesBottomSheetState extends State<ServicesBottomSheet> {
           children: [
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 20),
-              decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 255, 221, 182),
+              decoration: const BoxDecoration(
+                  color: Color.fromARGB(255, 255, 221, 182),
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(16),
                       topRight: Radius.circular(16))),
@@ -33,7 +33,7 @@ class _ServicesBottomSheetState extends State<ServicesBottomSheet> {
                     height: 16,
                   ),
                   ListTile(
-                    title: Text(
+                    title: const Text(
                       'Сумма',
                       style: TextStyle(
                         fontSize: 20,
@@ -53,9 +53,9 @@ class _ServicesBottomSheetState extends State<ServicesBottomSheet> {
                     ),
                   ),
                   ListTile(
-                    title: Text(
+                    title: const Text(
                       'Salon',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                       ),
@@ -74,9 +74,9 @@ class _ServicesBottomSheetState extends State<ServicesBottomSheet> {
                     ),
                   ),
                   ListTile(
-                    title: Text(
+                    title: const Text(
                       'Date & Time',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                       ),
@@ -103,12 +103,12 @@ class _ServicesBottomSheetState extends State<ServicesBottomSheet> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      margin: EdgeInsets.symmetric(vertical: 8),
+                      margin: const EdgeInsets.symmetric(vertical: 8),
                       height: 4,
                       width: 64,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        color: Color.fromARGB(255, 157, 80, 55),
+                        color: const Color.fromARGB(255, 157, 80, 55),
                       ),
                     ),
                   ],

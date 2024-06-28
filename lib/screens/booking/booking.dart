@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fl_booking_app/screens/booking/services_tab/services_tab.dart';
 import 'package:fl_booking_app/screens/booking/time_tab/time_tab.dart';
 import 'package:fl_booking_app/screens/booking/new_appointment_tab/new_appointment_tab.dart';
-import 'package:fl_booking_app/models/models.dart';
 
-import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 
 //Main body of the page
@@ -133,7 +131,7 @@ class _BookingTabsState extends State<BookingTabs>
 class ReadOnlyTabBar extends StatelessWidget implements PreferredSizeWidget {
   final TabBar child;
 
-  const ReadOnlyTabBar({Key? key, required this.child}) : super(key: key);
+  const ReadOnlyTabBar({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {

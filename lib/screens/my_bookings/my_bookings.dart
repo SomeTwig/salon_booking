@@ -5,7 +5,6 @@ import 'package:fl_booking_app/screens/my_bookings/my_booking_container/my_booki
 
 import 'package:fl_booking_app/models/models.dart';
 import 'package:fl_booking_app/data/db_helper.dart';
-import 'package:fl_booking_app/data/data.dart';
 import 'package:fl_booking_app/data/booking_data.dart';
 
 class MyBookings extends StatefulWidget {
@@ -20,6 +19,7 @@ class _MyBookingsState extends State<MyBookings> {
 
   late DatabaseHelper dbHelper;
 
+  @override
   void initState() {
     super.initState();
 
@@ -32,7 +32,6 @@ class _MyBookingsState extends State<MyBookings> {
 
   @override
   Widget build(BuildContext context) {
-    List<List<String>> myMockBookings = [mockBooking1, mockBooking2];
     return Scaffold(
       appBar: AppBar(
         title: const Text('My Bookings'),
@@ -48,13 +47,12 @@ class _MyBookingsState extends State<MyBookings> {
                   itemCount: snapshot.data!.length,
                   itemBuilder: (BuildContext context, int index) {
                     return BookingContainer(
-                      mockBooking: myMockBookings.elementAt(0),
                       myBooking: snapshot.data!.elementAt(index),
                     );
                   },
                 );
               } else if (snapshot.hasData == false) {
-                return Text('You haven`t made any appointments yet');
+                return const Text('You haven`t made any appointments yet');
               } else if (snapshot.hasError) {
                 return Text('${snapshot.error}');
               }

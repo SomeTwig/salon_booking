@@ -124,7 +124,7 @@ final goRouter = GoRouter(
           final data = state.extra! as Map<String, dynamic>;
           return LoginPage(pageData: data["pageData"]);
         } else {
-          return LoginPage();
+          return const LoginPage();
         }
       },
     ),

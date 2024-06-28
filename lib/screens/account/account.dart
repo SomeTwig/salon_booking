@@ -22,8 +22,8 @@ class _AccountPageState extends State<AccountPage> {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
                 child: Text(
                   "Account Setting",
                   style: TextStyle(fontSize: 20),
@@ -36,14 +36,14 @@ class _AccountPageState extends State<AccountPage> {
                 child: IconButton(
                   icon: const Icon(Icons.navigate_next),
                   iconSize: 32,
-                  color: Color.fromARGB(255, 132, 84, 0),
+                  color: const Color.fromARGB(255, 132, 84, 0),
                   onPressed: () {},
                 ),
               ),
             ],
           ),
         ),
-        Divider(),
+        const Divider(),
       ],
     ),
   );
@@ -56,13 +56,13 @@ class _AccountPageState extends State<AccountPage> {
       ),
       body: SingleChildScrollView(
           child: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Container(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              AccountInfo(),
+              const AccountInfo(),
               ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
@@ -94,16 +94,16 @@ class _AccountInfoState extends State<AccountInfo> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Padding(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: Row(
             children: [
-              CircleAvatar(
+              const CircleAvatar(
                 radius: 30,
                 child: Center(
                   child: Text('A'),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 8,
               ),
               Column(
@@ -114,7 +114,7 @@ class _AccountInfoState extends State<AccountInfo> {
                     child: Text(
                       Provider.of<MyAccount>(context, listen: false)
                           .accountName,
-                      style: TextStyle(fontSize: 20),
+                      style: const TextStyle(fontSize: 20),
                     ),
                   ),
                   Container(

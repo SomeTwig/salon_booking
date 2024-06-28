@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import 'package:fl_booking_app/screens/my_bookings/my_booking_container/components/all_components.dart';
 import 'package:fl_booking_app/data/booking_data.dart';
 
 import 'package:fl_booking_app/models/models.dart';
 import 'package:fl_booking_app/data/db_helper.dart';
-import 'package:fl_booking_app/data/data.dart';
 
 class BookingContainer extends StatefulWidget {
-  final List<String> mockBooking;
   final BookingData myBooking;
 
   const BookingContainer(
-      {super.key, required this.mockBooking, required this.myBooking});
+      {super.key, required this.myBooking});
 
   @override
   State<BookingContainer> createState() => _BookingContainerState();
@@ -24,6 +21,7 @@ class _BookingContainerState extends State<BookingContainer> {
 
   late DatabaseHelper dbHelper;
 
+  @override
   void initState() {
     super.initState();
 
@@ -39,12 +37,12 @@ class _BookingContainerState extends State<BookingContainer> {
   Widget sum(BookingData myBookingData) {
     return Container(
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('Total'),
+            const Text('Total'),
             Text(myBookingData.priceTotal.toString()),
           ],
         ),
@@ -85,9 +83,9 @@ class _BookingContainerState extends State<BookingContainer> {
                 alignment: Alignment.topLeft,
                 clipBehavior: Clip.none,
                 children: [
-                  Align(
+                  const Align(
                     alignment: Alignment.topLeft,
-                    child: Container(
+                    child: SizedBox(
                       width: 96,
                       height: 16,
                     ),
@@ -106,7 +104,7 @@ class _BookingContainerState extends State<BookingContainer> {
                               color: Color.fromARGB(255, 111, 247, 246),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(16))),
-                          child: Center(
+                          child: const Center(
                             child: Text('Tomorrow'),
                           ),
                         ),
@@ -116,7 +114,6 @@ class _BookingContainerState extends State<BookingContainer> {
                 ],
               ),
               MyBookingDetails(
-                  mockBookingDetails: widget.mockBooking,
                   myBooking: widget.myBooking),
               FutureBuilder<List<FLService>>(
                   future: futureMyBookingServicesList,
@@ -124,7 +121,7 @@ class _BookingContainerState extends State<BookingContainer> {
                     if (snapshot.hasData) {
                       return MyServicesList(myBookingServices: snapshot.data!);
                     } else if (snapshot.hasData == false) {
-                      return Text('You haven`t booked any services.');
+                      return const Text('You haven`t booked any services.');
                     } else if (snapshot.hasError) {
                       return Text('${snapshot.error}');
                     }
@@ -142,7 +139,7 @@ class _BookingContainerState extends State<BookingContainer> {
                       DateTime.now().day)
                   .isAfter(DateTime.parse(widget.myBooking.date)))
                 // ! past booking - repeat of services, comment, rating availible
-                FinishedButtons(),
+                const FinishedButtons(),
             ],
           ),
         ),

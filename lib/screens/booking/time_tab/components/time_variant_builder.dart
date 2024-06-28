@@ -15,7 +15,7 @@ class TimeVariantBuilder extends StatefulWidget {
 class _TimeVariantBuilderState extends State<TimeVariantBuilder> {
   bool isShow = false;
 
-  int? _selectedIndex = null;
+  int? _selectedIndex;
 
   @override
   Widget build(BuildContext context) {
