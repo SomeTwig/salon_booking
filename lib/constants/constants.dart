@@ -18,5 +18,6 @@ const myNetworkId = 1; //1-UA , 2-PL
 
 //Parts of api requests
 const myOnlineBookingServiceHost = 'http://fltestapi.x-tend.com.ua';
-const myOnlineBookingDiscountCode = 'JENPCZ4FSC';
-const myOnlineBookingCountactSourceId = '7'; //where the api request is coming from
+const myOnlineBookingDiscountCode = '';
+const myOnlineBookingCountactSourceId =
+    '7'; //where the api request is coming from

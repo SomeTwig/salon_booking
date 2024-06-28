@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'package:fl_booking_app/screens/booking/services_tab/services_tab.dart';
 import 'package:fl_booking_app/screens/booking/time_tab/time_tab.dart';
-import 'package:fl_booking_app/screens/booking/appointment_tab/appointment_tab.dart';
+import 'package:fl_booking_app/screens/booking/new_appointment_tab/new_appointment_tab.dart';
+import 'package:fl_booking_app/models/models.dart';
+
+import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 
 //Main body of the page
@@ -70,12 +73,13 @@ class _BookingTabsState extends State<BookingTabs>
         onNext: () => _tabController.index = 1,
       ),
       TimeTab(
-        onNext: () => _tabController.index = 2,
+        onNext: () {
+          _tabController.index = 2;
+        },
         onPrev: () => _tabController.index = 0,
       ),
-      AppointmentTab(
+      NewAppointmentTab(
         onSubmit: () {
-          int count = 0;
           context.go('/home');
         },
         onPrev: () => _tabController.index = 1,

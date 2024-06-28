@@ -16,7 +16,7 @@ class BookingService {
 
   Future<List<FLService>> fetchServices() async {
     const String url =
-        //'https://fltest.x-tend.com.ua/api/GetBookingPrice?networkId=1&language=2&discountcode=JENPCZ4FSC';
+        //'https://fltest.x-tend.com.ua/api/GetBookingPrice?networkId=1&language=2&discountcode=';
         '$serviceURL/GetServicesPriceList?networkId=$myNetworkId&languageid=$myLanguageId&discountcode=$myOnlineBookingDiscountCode';
 
     String responseBody = await _callAPI(url, 'get');

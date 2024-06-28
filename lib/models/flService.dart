@@ -11,7 +11,7 @@ class FLService {
   bool hasParam;
   double price;
   double discountedPrice;
-  int? discountedPercent;
+  int discountedPercent;
   int duration;
 
   int quantity = 0;
@@ -31,7 +31,8 @@ class FLService {
       required this.price,
       required this.discountedPrice,
       required this.discountedPercent,
-      required this.duration});
+      required this.duration,
+      required this.quantity});
 
   Map toJson() => {
         'serviceId': serviceId,
@@ -55,10 +56,29 @@ class FLService {
       lineOfBusiness: json['lineOfBusiness'] as String,
       hasParam: toBoolean(json['hasParam'].toString()),
       price: double.parse(json['price'].toString()),
-      discountedPrice: double.parse(json['discountedPrice'].toString()),
+      discountedPrice: double.tryParse(json['discountPrice'].toString()) ?? double.parse(json['price'].toString()),
       discountedPercent:
-          double.tryParse(json['discountPercent'].toString())?.toInt(),
+          double.tryParse(json['discountPercent'].toString())?.toInt() ?? 0,
       duration: aDuration,
+      quantity: 0,
     );
+  }
+
+  Map<String, dynamic> toMap(int bookingId) {
+    return {
+      'serviceId': serviceId,
+      'bookingId': bookingId,
+      'serviceParamId': serviceParamId,
+      'serviceName': serviceName,
+      'serviceParam': serviceParam,
+      'lineOfBusinessId': lineOfBusinessId,
+      'lineOfBusiness': lineOfBusiness,
+      'hasParam': hasParam ? 1 : 0,
+      'price': price,
+      'discountedPrice': discountedPrice,
+      'discountedPercent': discountedPercent,
+      'duration': duration,
+      'quantity': quantity,
+    };
   }
 }

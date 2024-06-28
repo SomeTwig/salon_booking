@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:provider/provider.dart';
+
 import 'package:fl_booking_app/models/models.dart';
 import 'package:fl_booking_app/data/db_helper.dart';
 import 'package:fl_booking_app/data/booking_data.dart';
+
 
 class AppointmentTab extends StatefulWidget {
   const AppointmentTab(
@@ -17,7 +20,8 @@ class AppointmentTab extends StatefulWidget {
 
 class _AppointmentTabState extends State<AppointmentTab>
     with AutomaticKeepAliveClientMixin<AppointmentTab> {
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  final GlobalKey<FormState> personalFormKey = GlobalKey<FormState>();
   final TextEditingController controllerPhone = TextEditingController();
   TextEditingController controllerName = TextEditingController();
   TextEditingController controllerComment = TextEditingController();
@@ -44,6 +48,7 @@ class _AppointmentTabState extends State<AppointmentTab>
       time: Provider.of<BookingInfo>(context, listen: false).bTime,
       salonName: Provider.of<BookingInfo>(context, listen: false).sName,
       salonId: Provider.of<BookingInfo>(context, listen: false).salonId,
+      services: Provider.of<BookingInfo>(context, listen: false).services,
       priceTotal: Provider.of<BookingInfo>(context, listen: false).priceTotal,
       clientName: Provider.of<BookingInfo>(context, listen: false).clientName,
       clientPhone: Provider.of<BookingInfo>(context, listen: false).clientPhone,
@@ -53,7 +58,8 @@ class _AppointmentTabState extends State<AppointmentTab>
           Provider.of<BookingInfo>(context, listen: false).personalPermit,
     );
     dbHelper.insertBooking(bData);
-    dbHelper.getBookings();
+    // dbHelper.getAllBookings();
+    // dbHelper.getAllBookingServices();
   }
 
   @override
@@ -100,12 +106,12 @@ class _AppointmentTabState extends State<AppointmentTab>
               padding: const EdgeInsets.only(right: 10),
               child: FilledButton(
                 onPressed: () {
-                  if (formKey.currentState!.validate()) {
+                  if (personalFormKey.currentState!.validate()) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                           content: Text('Создание бронировки... \n')),
                     );
-                    formKey.currentState?.save();
+                    personalFormKey.currentState?.save();
                     Provider.of<BookingInfo>(context, listen: false)
                         .addClientInfo(
                             controllerName.text,
@@ -153,7 +159,7 @@ class _AppointmentTabState extends State<AppointmentTab>
                   ),
                 ),
                 Form(
-                    key: formKey,
+                    key: personalFormKey,
                     child: Container(
                       margin: const EdgeInsets.all(20.0),
                       child: Column(

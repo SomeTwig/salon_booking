@@ -25,6 +25,7 @@ class _TimeTabExampleState extends State<TimeTab>
   late Future<List<OfficeDate>> futureOfficeDatesList;
   late List<BookingVariant> futureBookingVariants = [];
 
+  final PageController _pageController = PageController();
   final CalendarFormat _calendarFormat = CalendarFormat.twoWeeks;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
@@ -39,9 +40,11 @@ class _TimeTabExampleState extends State<TimeTab>
     super.initState();
     futureOfficeDatesList = OfficeList().fetchAllOfficeDates();
     _selectedDay = _focusedDay;
-    addFutBookVar();
+    //addFutBookVar();
     _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
-    _selectedEvents.value = _getEventsForDay(_selectedDay!);
+    // _selectedEvents.value = _getEventsForDay(_selectedDay!);
+    // print(_selectedDay);
+    // print(_selectedEvents.value);
   }
 
   @override
@@ -50,23 +53,24 @@ class _TimeTabExampleState extends State<TimeTab>
     super.dispose();
   }
 
-  void addFutBookVar() async {
-    String cdate = DateFormat("yyyy-MM-dd").format(_focusedDay);
-    //print(cdate);
-    String jsonTags =
-        jsonEncode(Provider.of<BookingInfo>(context, listen: false).services);
-    futureBookingVariants = await BookingInfo().fetchBookingVariants(
-        Provider.of<OfficeList>(context, listen: false).office.officeId,
-        cdate,
-        jsonTags);
-    //print(futureBookingVariants);
-  }
+  // void addFutBookVar() async {
+  //   String cdate = DateFormat("yyyy-MM-dd").format(_focusedDay);
+  //   //print(cdate);
+  //   String jsonTags =
+  //       jsonEncode(Provider.of<BookingInfo>(context, listen: false).services);
+  //   futureBookingVariants = await BookingInfo().fetchBookingVariants(
+  //       Provider.of<OfficeList>(context, listen: false).office.officeId,
+  //       cdate,
+  //       jsonTags);
+  //   //print(futureBookingVariants);
+  // }
 
   List<BookingVariant> _getEventsForDay(DateTime day) {
     if (futureBookingVariants.isNotEmpty) {
-      //print('notempty');
+      print('notempty');
       return futureBookingVariants;
     }
+    print('empty');
     return [];
   }
 
@@ -86,6 +90,20 @@ class _TimeTabExampleState extends State<TimeTab>
           jsonTags);
       _selectedEvents.value = _getEventsForDay(selectedDay);
     }
+  }
+
+  void _onCalendarCreated(PageController pageController) async {
+    print(_selectedDay);
+    String cdate = DateFormat("yyyy-MM-dd").format(_selectedDay!);
+    String jsonTags =
+        jsonEncode(Provider.of<BookingInfo>(context, listen: false).services);
+    futureBookingVariants = await BookingInfo().fetchBookingVariants(
+        Provider.of<OfficeList>(context, listen: false).office.officeId,
+        cdate,
+        jsonTags);
+    _selectedEvents.value = _getEventsForDay(_selectedDay!);
+
+    print('CALLBACK: _onCalendarCreated');
   }
 
   @override
@@ -188,8 +206,8 @@ class _TimeTabExampleState extends State<TimeTab>
                                   Provider.of<OfficeList>(context,
                                           listen: false)
                                       .calcOfficeDates(snapshot.data!);
-                                  _selectedEvents.value =
-                                      _getEventsForDay(_selectedDay!);
+                                  // _selectedEvents.value =
+                                  //     _getEventsForDay(_selectedDay!);
                                   //print(jsonTags);
                                   return Column(
                                     children: [
@@ -208,11 +226,7 @@ class _TimeTabExampleState extends State<TimeTab>
                                                       listen: false)
                                                   .officeDates
                                                   .last),
-                                          focusedDay: DateTime.parse(
-                                              Provider.of<OfficeList>(context,
-                                                      listen: false)
-                                                  .officeDates
-                                                  .first),
+                                          focusedDay: _focusedDay,
                                           locale: 'ru_RU',
                                           calendarFormat: _calendarFormat,
                                           availableCalendarFormats: const {
@@ -235,22 +249,28 @@ class _TimeTabExampleState extends State<TimeTab>
                                           onPageChanged: (focusedDay) {
                                             _focusedDay = focusedDay;
                                           },
+                                          onCalendarCreated: _onCalendarCreated,
                                           startingDayOfWeek:
                                               StartingDayOfWeek.monday,
                                           eventLoader: _getEventsForDay,
+                                          calendarBuilders: CalendarBuilders(
+                                            outsideBuilder:
+                                                (context, day, focusedDay) {
+                                              return Center(
+                                                child: Text('${day.day}'),
+                                              );
+                                            },
+                                          ),
                                         ),
                                       ),
-                                      Container(
-                                        height: 168,
-                                        child: ValueListenableBuilder<
-                                            List<BookingVariant>>(
-                                          valueListenable: _selectedEvents,
-                                          builder: (context, value, _) {
-                                            //print(_selectedEvents);
-                                            return TimeVariantBuilder(
-                                                bookingVarList: value);
-                                          },
-                                        ),
+                                      ValueListenableBuilder<
+                                          List<BookingVariant>>(
+                                        valueListenable: _selectedEvents,
+                                        builder: (context, value, _) {
+                                          print(_selectedEvents.value);
+                                          return TimeVariantBuilder(
+                                              bookingVarList: value);
+                                        },
                                       ),
                                     ],
                                   );

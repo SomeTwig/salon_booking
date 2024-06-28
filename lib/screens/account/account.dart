@@ -1,51 +1,17 @@
 import 'package:flutter/material.dart';
 
+import 'package:provider/provider.dart';
+
+import 'package:fl_booking_app/models/models.dart';
+
 class AccountPage extends StatefulWidget {
-   const AccountPage({super.key});
+  const AccountPage({super.key});
 
   @override
   State<AccountPage> createState() => _AccountPageState();
 }
 
 class _AccountPageState extends State<AccountPage> {
-  Widget accountInfo = Column(
-    mainAxisSize: MainAxisSize.min,
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-      Padding(
-        padding: EdgeInsets.all(16),
-        child: Row(
-          children: [
-            CircleAvatar(
-              radius: 30,
-              child: Center(
-                child: Text('A'),
-              ),
-            ),
-            SizedBox(
-              width: 8,
-            ),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  child: Text(
-                    'Account Name',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                ),
-                Container(
-                  child: Text('+380961111111'),
-                ),
-              ],
-            )
-          ],
-        ),
-      ),
-    ],
-  );
-
   Widget settingOption = Padding(
     padding: const EdgeInsets.symmetric(horizontal: 16.0),
     child: Column(
@@ -96,7 +62,7 @@ class _AccountPageState extends State<AccountPage> {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              accountInfo,
+              AccountInfo(),
               ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
@@ -109,6 +75,58 @@ class _AccountPageState extends State<AccountPage> {
           ),
         ),
       )),
+    );
+  }
+}
+
+class AccountInfo extends StatefulWidget {
+  const AccountInfo({super.key});
+
+  @override
+  State<AccountInfo> createState() => _AccountInfoState();
+}
+
+class _AccountInfoState extends State<AccountInfo> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Padding(
+          padding: EdgeInsets.all(16),
+          child: Row(
+            children: [
+              CircleAvatar(
+                radius: 30,
+                child: Center(
+                  child: Text('A'),
+                ),
+              ),
+              SizedBox(
+                width: 8,
+              ),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    child: Text(
+                      Provider.of<MyAccount>(context, listen: false)
+                          .accountName,
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                  Container(
+                    child: Text(Provider.of<MyAccount>(context, listen: false)
+                        .accountPhone),
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

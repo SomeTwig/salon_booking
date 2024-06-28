@@ -2,11 +2,17 @@ import 'package:flutter/material.dart';
 
 import 'package:go_router/go_router.dart';
 
+import 'package:fl_booking_app/models/models.dart';
+
 // Define Routes
 import 'package:fl_booking_app/screens/home/home.dart';
 import 'package:fl_booking_app/screens/booking/booking.dart';
 import 'package:fl_booking_app/screens/my_bookings/my_bookings.dart';
 import 'package:fl_booking_app/screens/account/account.dart';
+import 'package:fl_booking_app/screens/account/login.dart';
+import 'package:fl_booking_app/screens/account/register.dart';
+
+import 'package:provider/provider.dart';
 
 const String homePage = 'home';
 const String bookingPage = 'booking';
@@ -31,6 +37,8 @@ final _shellNavigatorBookingsKey =
     GlobalKey<NavigatorState>(debugLabel: 'shellMyBookings');
 final _shellNavigatorAccountKey =
     GlobalKey<NavigatorState>(debugLabel: 'shellAccount');
+final _shellNavigatorLoginKey =
+    GlobalKey<NavigatorState>(debugLabel: 'shellLogin');
 
 final goRouter = GoRouter(
   initialLocation: '/home',
@@ -76,6 +84,14 @@ final goRouter = GoRouter(
               pageBuilder: (context, state) => const NoTransitionPage(
                 child: MyBookings(),
               ),
+              redirect: (context, state) {
+                if (Provider.of<MyAccount>(context, listen: false)
+                    .accountPhone
+                    .isEmpty) {
+                  return '/login';
+                }
+                return '/mybookings';
+              },
             ),
           ],
         ),
@@ -87,10 +103,38 @@ final goRouter = GoRouter(
               pageBuilder: (context, state) => const NoTransitionPage(
                 child: AccountPage(),
               ),
+              redirect: (context, state) {
+                if (Provider.of<MyAccount>(context, listen: false)
+                    .accountPhone
+                    .isEmpty) {
+                  return '/login';
+                }
+                return '/account';
+              },
             ),
           ],
         ),
       ],
+    ),
+    GoRoute(
+      path: '/login',
+      builder: (context, state) {
+        // receive and pass to the registration page the users phone number
+        if (state.extra != null) {
+          final data = state.extra! as Map<String, dynamic>;
+          return LoginPage(pageData: data["pageData"]);
+        } else {
+          return LoginPage();
+        }
+      },
+    ),
+    GoRoute(
+      path: '/register',
+      builder: (context, state) {
+        // receive and pass to the registration page the users phone number
+        final data = state.extra! as Map<String, dynamic>;
+        return RegisterPage(phoneData: data["phoneData"]);
+      },
     ),
   ],
 );

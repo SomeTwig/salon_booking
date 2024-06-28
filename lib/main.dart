@@ -18,7 +18,8 @@ void main() {
         providers: [
           ChangeNotifierProvider(create: (context) => BookingInfo()),
           ChangeNotifierProvider(create: (context) => ServiceList()),
-          ChangeNotifierProvider(create: (context) => OfficeList())
+          ChangeNotifierProvider(create: (context) => OfficeList()),
+          ChangeNotifierProvider(create: (context) => MyAccount()),
         ],
         child: const MyApp(),
       ),
@@ -51,7 +52,7 @@ class _MyAppState extends State<MyApp> {
                   176,
                   126,
                 ),
-                secondary: Color.fromARGB(255, 3, 166, 166),),
+                secondary: Color.fromARGB(255, 68, 95, 95),),
             floatingActionButtonTheme: FloatingActionButtonThemeData(
               backgroundColor: Color.fromARGB(255, 111, 247, 246),
             ),

@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 
+import 'package:fl_booking_app/data/booking_data.dart';
+
 class MyBookingDetails extends StatefulWidget {
   final List<String> mockBookingDetails;
 
-  const MyBookingDetails({super.key, required this.mockBookingDetails});
+  final BookingData myBooking;
+
+  const MyBookingDetails(
+      {super.key, required this.mockBookingDetails, required this.myBooking});
   @override
   State<MyBookingDetails> createState() => _MyBookingDetailsState();
 }
@@ -29,7 +34,7 @@ class _MyBookingDetailsState extends State<MyBookingDetails> {
                   SizedBox(
                     width: 8,
                   ),
-                  Text(widget.mockBookingDetails[0]),
+                  Text(widget.myBooking.date),
                 ],
               ),
               SizedBox(
@@ -42,7 +47,7 @@ class _MyBookingDetailsState extends State<MyBookingDetails> {
                   SizedBox(
                     width: 8,
                   ),
-                  Text(widget.mockBookingDetails[1]),
+                  Text(widget.myBooking.time),
                 ],
               ),
               SizedBox(
@@ -55,7 +60,12 @@ class _MyBookingDetailsState extends State<MyBookingDetails> {
                   SizedBox(
                     width: 8,
                   ),
-                  Text(widget.mockBookingDetails[2]),
+                  SizedBox(
+                      width: 164,
+                      child: Text(
+                        widget.myBooking.salonName,
+                        softWrap: true,
+                      )),
                 ],
               ),
               SizedBox(
@@ -68,7 +78,7 @@ class _MyBookingDetailsState extends State<MyBookingDetails> {
                   SizedBox(
                     width: 8,
                   ),
-                  Text(widget.mockBookingDetails[3]),
+                  Text('Salon phone number'),
                 ],
               ),
             ],

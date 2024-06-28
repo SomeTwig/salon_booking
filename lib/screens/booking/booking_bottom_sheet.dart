@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:fl_booking_app/models/models.dart';
-import 'package:fl_booking_app/screens/booking/services_tab/services_add/services_add.dart';
-import 'package:fl_booking_app/screens/booking/services_tab/components/service_container.dart';
 
 class ServicesBottomSheet extends StatefulWidget {
   const ServicesBottomSheet({super.key});

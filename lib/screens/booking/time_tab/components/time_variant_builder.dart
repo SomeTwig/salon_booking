@@ -15,24 +15,25 @@ class TimeVariantBuilder extends StatefulWidget {
 class _TimeVariantBuilderState extends State<TimeVariantBuilder> {
   bool isShow = false;
 
-  int _selectedIndex = 0;
+  int? _selectedIndex = null;
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
+      scrollDirection: Axis.vertical,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: Wrap(
-          direction: Axis.vertical,
+          direction: Axis.horizontal,
           spacing: 16,
           runSpacing: 16,
           children: List<Widget>.generate(
             widget.bookingVarList.length,
             (int index) {
               //print(value.length);
-              String wTimeFrom = widget.bookingVarList[index].timeFrom.substring(
-                  0, widget.bookingVarList[index].timeFrom.lastIndexOf(':'));
+              String wTimeFrom = widget.bookingVarList[index].timeFrom
+                  .substring(0,
+                      widget.bookingVarList[index].timeFrom.lastIndexOf(':'));
               String wTimeTo = widget.bookingVarList[index].timeTo.substring(
                   0, widget.bookingVarList[index].timeFrom.lastIndexOf(':'));
               return ChoiceChip(
@@ -45,6 +46,7 @@ class _TimeVariantBuilderState extends State<TimeVariantBuilder> {
                   });
                   Provider.of<BookingInfo>(context, listen: false)
                       .addTime("$wTimeFrom - $wTimeTo");
+                  print('added');
                 },
               );
             },
