@@ -87,7 +87,6 @@ class DatabaseHelper {
       where: 'accountPhone = ?',
       whereArgs: [accountPhone],
     );
-    //where: 'accountPhone = ?', whereArgs: [accountPhone]);
 
     return map;
   }

@@ -25,12 +25,10 @@ class _TimeTabExampleState extends State<TimeTab>
   late Future<List<OfficeDate>> futureOfficeDatesList;
   late List<BookingVariant> futureBookingVariants = [];
 
-  final PageController _pageController = PageController();
   final CalendarFormat _calendarFormat = CalendarFormat.twoWeeks;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
   DateTime kToday = DateTime.now();
-  final int _selectedIndex = 0;
 
   @override
   bool get wantKeepAlive => true;
@@ -40,11 +38,7 @@ class _TimeTabExampleState extends State<TimeTab>
     super.initState();
     futureOfficeDatesList = OfficeList().fetchAllOfficeDates();
     _selectedDay = _focusedDay;
-    //addFutBookVar();
     _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
-    // _selectedEvents.value = _getEventsForDay(_selectedDay!);
-    // print(_selectedDay);
-    // print(_selectedEvents.value);
   }
 
   @override
@@ -52,18 +46,6 @@ class _TimeTabExampleState extends State<TimeTab>
     _selectedEvents.dispose();
     super.dispose();
   }
-
-  // void addFutBookVar() async {
-  //   String cdate = DateFormat("yyyy-MM-dd").format(_focusedDay);
-  //   //print(cdate);
-  //   String jsonTags =
-  //       jsonEncode(Provider.of<BookingInfo>(context, listen: false).services);
-  //   futureBookingVariants = await BookingInfo().fetchBookingVariants(
-  //       Provider.of<OfficeList>(context, listen: false).office.officeId,
-  //       cdate,
-  //       jsonTags);
-  //   //print(futureBookingVariants);
-  // }
 
   List<BookingVariant> _getEventsForDay(DateTime day) {
     if (futureBookingVariants.isNotEmpty) {
@@ -202,13 +184,9 @@ class _TimeTabExampleState extends State<TimeTab>
                               future: futureOfficeDatesList,
                               builder: (context, snapshot) {
                                 if (snapshot.hasData) {
-                                  //print('snapshot');
                                   Provider.of<OfficeList>(context,
                                           listen: false)
                                       .calcOfficeDates(snapshot.data!);
-                                  // _selectedEvents.value =
-                                  //     _getEventsForDay(_selectedDay!);
-                                  //print(jsonTags);
                                   return Column(
                                     children: [
                                       Container(
@@ -226,7 +204,11 @@ class _TimeTabExampleState extends State<TimeTab>
                                                       listen: false)
                                                   .officeDates
                                                   .last),
-                                          focusedDay: _focusedDay,
+                                          focusedDay: DateTime.parse(
+                                              Provider.of<OfficeList>(context,
+                                                      listen: false)
+                                                  .officeDates
+                                                  .first),
                                           locale: 'ru_RU',
                                           calendarFormat: _calendarFormat,
                                           availableCalendarFormats: const {

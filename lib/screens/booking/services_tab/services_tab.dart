@@ -121,12 +121,6 @@ class _ServicesTabState extends State<ServicesTab>
                                           style: FilledButton.styleFrom(
                                             padding: const EdgeInsets.symmetric(
                                                 vertical: 16),
-                                            // shape: RoundedRectangleBorder(
-                                            //     borderRadius: BorderRadius.only(
-                                            //         bottomLeft: Radius.circular(16),
-                                            //         bottomRight:
-                                            //             Radius.circular(16))),
-
                                             backgroundColor: const Color.fromARGB(
                                                 255, 3, 166, 166),
                                             textStyle: const TextStyle(
@@ -187,7 +181,6 @@ class _ServicesChosenState extends State<ServicesChosen>
             shrinkWrap: true,
             itemCount: booking.services.length,
             itemBuilder: (context, index) {
-              // print(booking.services.length);
               return ServiceContainer(service: booking.services[index]);
             },
           );

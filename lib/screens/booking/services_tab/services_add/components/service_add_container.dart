@@ -21,8 +21,6 @@ class _ServiceAddContainerState extends State<ServiceAddContainer> {
 
   @override
   Widget build(BuildContext context) {
-    //print(widget.service.serviceParamId);
-    //final Size size = MediaQuery.of(context).size;
     return Container(
       decoration: const BoxDecoration(
         border: Border(
@@ -56,14 +54,6 @@ class _ServiceAddContainerState extends State<ServiceAddContainer> {
                       ]),
                 ),
                 Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                  // Text(
-                  //   widget.service.price.toString(),
-                  //   style: const TextStyle(
-                  //     fontSize: 14,
-                  //     fontWeight: FontWeight.w400,
-                  //     color: mySecondryTextColor,
-                  //   ),
-                  // ),
                   _showServicePrice(),
                   const Spacer(),
                   if (widget.service.hasParam == true)

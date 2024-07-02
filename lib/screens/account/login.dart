@@ -97,8 +97,6 @@ class _LoginPageState extends State<LoginPage> {
                     //CHANGE
                     if (clientLoginFormKey.currentState!.validate()) {
                       clientLoginFormKey.currentState?.save();
-                      // Provider.of<MyAccount>(context, listen: false)
-                      //     .addPhone(pNumber.phoneNumber.toString());
                       List<Map> result =
                           await dbHelper.getAccount(pNumber.phoneNumber!);
                       if (result.isEmpty) {

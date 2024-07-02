@@ -71,7 +71,6 @@ class _ServiceContainerState extends State<ServiceContainer> {
   Widget _decrementButton(FLService aService) {
     return IconButton(
       onPressed: () {
-        //print(_isDeleteButtonDisabled);
         if (_isDeleteButtonDisabled == true) {
           null;
         } else {
@@ -86,8 +85,6 @@ class _ServiceContainerState extends State<ServiceContainer> {
     setState(() {
       Provider.of<BookingInfo>(context, listen: false).deleteService(aService);
     });
-    // print('servq');
-    // print(aService.quantity);
     if (aService.quantity == 0) {
       setState(() {
         _isDeleteButtonDisabled = true;

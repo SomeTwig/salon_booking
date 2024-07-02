@@ -42,9 +42,6 @@ class ServiceList with ChangeNotifier {
     aService.discountedPrice<aService.price ? addSum(aService.discountedPrice) : addSum(aService.price);
     for (var element in _services) {
       if (element.key == aService.key) {
-        // print(aService.serviceParamId);
-        // print(aService.key);
-
         element.quantity++;
         return;
       }

@@ -56,8 +56,6 @@ class _NewAppointmentTabState extends State<NewAppointmentTab>
           Provider.of<BookingInfo>(context, listen: false).personalPermit,
     );
     dbHelper.insertBooking(bData);
-    // dbHelper.getAllBookings();
-    // dbHelper.getAllBookingServices();
   }
 
   @override

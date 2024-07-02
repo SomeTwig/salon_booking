@@ -30,7 +30,6 @@ class _TimeVariantBuilderState extends State<TimeVariantBuilder> {
           children: List<Widget>.generate(
             widget.bookingVarList.length,
             (int index) {
-              //print(value.length);
               String wTimeFrom = widget.bookingVarList[index].timeFrom
                   .substring(0,
                       widget.bookingVarList[index].timeFrom.lastIndexOf(':'));

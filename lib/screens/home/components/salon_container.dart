@@ -162,10 +162,6 @@ class _SalonContainerState extends State<SalonContainer> {
                     ),
                     FilledButton(
                       onPressed: () {
-                        // Provider.of<BookingInfo>(context, listen: false)
-                        //     .addSalon(widget.flSalon.officeName, widget.flSalon.officeId);
-                        // Provider.of<OfficeList>(context, listen: false)
-                        //     .addOffice(widget.flSalon);
                         Provider.of<BookingInfo>(context, listen: false)
                             .addSalon(widget.flSalon.officeName, widget.flSalon.officeId);
                         Provider.of<OfficeList>(context, listen: false)

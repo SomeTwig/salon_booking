@@ -21,9 +21,6 @@ class BookingService {
 
     String responseBody = await _callAPI(url, 'get');
 
-    //final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
-    //return parsed.map<Service>((json) => Service.fromJson(json)).toList();
-
     // Use the compute function to run parseServices in a separate isolate.
     return compute(parseServices, responseBody);
   }
@@ -55,11 +52,6 @@ class BookingService {
         '$serviceURL/GetBookingTimeVariants?networkId=$myNetworkId&languageid=$myLanguageId&officeid=$officeId&bookingdate=$selectedDate';
     //'$serviceURL/GetBookingTimeVariants?networkId=$myNetworkId&languageid=$myLanguageId&officeid=$officeId&bookingdate=$selectedDate';
     String responseBody = await _callAPI(url, 'post', jsonBody);
-    // print(officeId);
-    // print(selectedDate);
-    // print("jsonBody");
-    // print(jsonBody);
-    // print(responseBody);
     // Use the compute function to run parseServices in a separate isolate.
     return compute(parseBookingTimeVariants, responseBody);
   }
@@ -81,7 +73,6 @@ class BookingService {
       if (response.statusCode == 200 || response.statusCode == 201) {
         return response.body;
       } else {
-        // print(response.toString());
         // If the server did not return a 200-OK or 201-CREATED response,
         // then throw an exception.
         throw Exception('Failed to call Web-API method.');
