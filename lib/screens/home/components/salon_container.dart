@@ -7,7 +7,6 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import 'package:provider/provider.dart';
 
-
 class SalonContainer extends StatefulWidget {
   final FLOffice flSalon;
 
@@ -21,18 +20,34 @@ class _SalonContainerState extends State<SalonContainer> {
   Widget actionIconButtons = Row(
     mainAxisAlignment: MainAxisAlignment.end,
     children: [
-      FloatingActionButton(
-        heroTag: "phoneBtn",
+      IconButton(
         onPressed: () {},
-        child: const Icon(Icons.phone),
+        icon: const Icon(Icons.phone),
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16.0),
+          ),
+          backgroundColor: const Color.fromARGB(255, 111, 247, 246),
+          fixedSize: const Size(56, 56),
+          elevation: 5,
+          shadowColor: Colors.grey.withOpacity(0.5),
+        ),
       ),
       const SizedBox(
         width: 16,
       ),
-      FloatingActionButton(
-        heroTag: "navBtn",
+      IconButton(
         onPressed: () {},
-        child: const Icon(Icons.navigation),
+        icon: const Icon(Icons.navigation),
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16.0),
+          ),
+          backgroundColor: const Color.fromARGB(255, 111, 247, 246),
+          fixedSize: const Size(56, 56),
+          elevation: 5,
+          shadowColor: Colors.grey.withOpacity(0.5),
+        ),
       ),
     ],
   );
@@ -122,7 +137,8 @@ class _SalonContainerState extends State<SalonContainer> {
                           allowHalfRating: true,
                           itemCount: 5,
                           itemSize: 20,
-                          itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                          itemPadding:
+                              const EdgeInsets.symmetric(horizontal: 4.0),
                           itemBuilder: (context, _) => const Icon(
                             Icons.star,
                             color: Colors.white,
@@ -163,7 +179,8 @@ class _SalonContainerState extends State<SalonContainer> {
                     FilledButton(
                       onPressed: () {
                         Provider.of<BookingInfo>(context, listen: false)
-                            .addSalon(widget.flSalon.officeName, widget.flSalon.officeId);
+                            .addSalon(widget.flSalon.officeName,
+                                widget.flSalon.officeId);
                         Provider.of<OfficeList>(context, listen: false)
                             .addOffice(widget.flSalon);
                         GoRouter.of(context).go('/home/booking');

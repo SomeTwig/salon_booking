@@ -46,13 +46,14 @@ class _MyAppState extends State<MyApp> {
           title: 'Salon Booking App',
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(
-                seedColor: const Color.fromARGB(
-                  255,
-                  217,
-                  176,
-                  126,
-                ),
-                secondary: const Color.fromARGB(255, 68, 95, 95),),
+              seedColor: const Color.fromARGB(
+                255,
+                217,
+                176,
+                126,
+              ),
+              secondary: const Color.fromARGB(255, 68, 95, 95),
+            ),
             floatingActionButtonTheme: const FloatingActionButtonThemeData(
               backgroundColor: Color.fromARGB(255, 111, 247, 246),
             ),

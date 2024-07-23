@@ -50,25 +50,6 @@ class _BookingContainerState extends State<BookingContainer> {
     );
   }
 
-  Widget actionIconButtons = Column(
-    mainAxisAlignment: MainAxisAlignment.end,
-    children: [
-      FloatingActionButton(
-        heroTag: "phoneBtn",
-        onPressed: () {},
-        child: const Icon(Icons.phone),
-      ),
-      const SizedBox(
-        height: 16,
-      ),
-      FloatingActionButton(
-        heroTag: "navBtn",
-        onPressed: () {},
-        child: const Icon(Icons.navigation),
-      ),
-    ],
-  );
-
   @override
   Widget build(BuildContext context) {
     return Center(
